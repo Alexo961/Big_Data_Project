@@ -1,14 +1,15 @@
 package Supports;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 class SupportObject {
 	
 	
 	private Double ogettoDouble ;
-	private Date ogettoDate;
+	private LocalDate ogettoDate;
 	
-	public SupportObject(Double ogettoDouble, Date ogettoDate) {
+	public SupportObject(Double ogettoDouble, LocalDate ogettoDate) {
 		super();
 		this.ogettoDouble = ogettoDouble;
 		this.ogettoDate = ogettoDate;
@@ -22,11 +23,11 @@ class SupportObject {
 		this.ogettoDouble = ogettoDouble;
 	}
 
-	public Date getOgettoDate() {
+	public LocalDate getOgettoDate() {
 		return ogettoDate;
 	}
 
-	public void setOgettoDate(Date ogettoDate) {
+	public void setOgettoDate(LocalDate ogettoDate) {
 		this.ogettoDate = ogettoDate;
 	}
 
