@@ -9,10 +9,10 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 
-import Supports.OutputObject;
+import Supports.StockObject;
 
 public class Job1Reducer extends
-Reducer<Text, List<String>, Text, OutputObject > {
+Reducer<Text, List<String>, Text, StockObject > {
 	
 	public void reduce(Text key, Iterable<List<String>> values,
 			Context context) throws IOException, InterruptedException {
