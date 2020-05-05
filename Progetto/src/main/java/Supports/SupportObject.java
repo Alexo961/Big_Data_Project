@@ -69,7 +69,11 @@ public class SupportObject {
 	}
 	
 	public static StockObject[] first_last(StockObject[] fl, StockObject so) {
-			
+			if (fl[0] == null && fl[1] == null) {
+				fl[0] = so;
+				fl[1] = so;
+				return fl;
+			}
 			if (so.getDate().compareTo(fl[0].getDate()) < 0)
 				fl[0] = so;
 			if (so.getDate().compareTo(fl[1].getDate()) > 0)
