@@ -15,13 +15,11 @@ import Supports.StockObject;
 public class Job1 {
 
 	public static void main(String[] args) throws Exception {
-		Job job = new Job( new Configuration(),"Job1");
+		Job job = Job.getInstance( new Configuration(),"Job1");
 		
-         job.setJarByClass(Job1.class);
+        job.setJarByClass(Job1.class);
 		
 		job.setMapperClass(Job1Mapper.class);
-		// combiner use
-		//job.setCombinerClass(WordCountReducer.class);
 		job.setReducerClass(Job1Reducer.class);
 
 		FileInputFormat.addInputPath(job, new Path(args[0]));
