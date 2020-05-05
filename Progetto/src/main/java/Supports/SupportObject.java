@@ -76,12 +76,55 @@ public class SupportObject {
 			
 	}
 	
+	
+	public static Double[] min_max( Double[] fl, double p1) {
+		
+		if (p1 < (fl[0].doubleValue()))
+			fl[0] = p1;
+		if (p1 >(fl[1].doubleValue()))
+			fl[1] = p1;
+		return fl;
+		
+}
+	//ritorna il valore medio della quotaz. inserendo la somma dei valori medi e il numero di valori per ogni ticker
+	public static Double vol_med(double sum, int k) {
+		
+		Double valore = 0.0;
+		
+		valore =sum/k;
+		
+		return valore;
+		
+	}
+
+	
+	
 	public static LocalDate randomDate() {
 		long minDay = LocalDate.of(2008, 1, 1).toEpochDay();
 	    long maxDay = LocalDate.of(2018, 12, 31).toEpochDay();
 	    long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
 	    LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
 	    return randomDate;
+	}
+	
+	public static Double variationquot(Double iniz,Double finale) {
+		Double result=(double) 0;
+		try {
+		
+	    result = ((finale-iniz)/ iniz) * 100;
+	   double roundOff = (double) Math.round(result * 100) / 100;
+	   result = roundOff;
+		
+		
+		}catch(Exception e) {
+		
+		
+		
+		
+		
+		}
+		
+		return result;
 	}
 
 }

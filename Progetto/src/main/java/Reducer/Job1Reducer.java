@@ -2,6 +2,7 @@ package Reducer;
 
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.hadoop.io.Text;
@@ -12,14 +13,22 @@ import Supports.SupportObject;
 
 
 public class Job1Reducer extends
-Reducer<Text, StockObject, Text, List<String> > {
+Reducer<Text, StockObject, Text, Text > {
 
 	public void reduce(Text key, Iterable<StockObject> values,
 			Context context) throws IOException, InterruptedException {
 
 
-
-
+		
+		int sum = 0;
+		int k= 0;
+		LocalDate[] a = new LocalDate[2] ;
+		
+		for(StockObject value : values) {
+			sum += value.getVolume();
+			k +=1;
+			
+		}
 
 
 
