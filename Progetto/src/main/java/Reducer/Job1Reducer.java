@@ -22,13 +22,14 @@ Reducer<Text, StockObject, Text, Text > {
 		
 		int sum = 0;
 		int k= 0;
-		LocalDate[] a = new LocalDate[2] ;
+		Double[]a = new Double[2];
 		
 		for(StockObject value : values) {
 			sum += value.getVolume();
 			k +=1;
-			
+			 a = SupportObject.min_max(a, value.getClose());
 		}
+		Double volume_medio = SupportObject.vol_med(sum, k);
 
 
 

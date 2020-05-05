@@ -78,13 +78,18 @@ public class SupportObject {
 	
 	
 	public static Double[] min_max( Double[] fl, double p1) {
+		if(fl[0] == null && fl[1]== null) {
+			fl[0]= p1;
+			fl[1] = p1;
+			return fl;
+		}else{
 		
 		if (p1 < (fl[0].doubleValue()))
 			fl[0] = p1;
 		if (p1 >(fl[1].doubleValue()))
 			fl[1] = p1;
 		return fl;
-		
+		}
 }
 	//ritorna il valore medio della quotaz. inserendo la somma dei valori medi e il numero di valori per ogni ticker
 	public static Double vol_med(double sum, int k) {
