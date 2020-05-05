@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 public class StockObject {
 	
+	
+	
+
 	private String ticker;
 	private Double open;
 	private Double close;
@@ -89,5 +92,9 @@ public class StockObject {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-
+	@Override
+	public String toString() {
+		return " price variation=" + SupportObject.variationquot(this.getOpen(), this.getClose()).toString()+  ", low=" + low + ", high=" + high
+				+ ", volume=" + volume ;
+	}
 }
