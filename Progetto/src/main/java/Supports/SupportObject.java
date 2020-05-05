@@ -48,25 +48,30 @@ public class SupportObject {
 		Long volume;
 		LocalDate date;
 		
-		try {ticker = list.get(0);} catch (Exception exc) {ticker = "NLL";}
-		try {open = Double.parseDouble(list.get(1));} catch (Exception exc) {open = Math.random(); ticker = "NLL";}
-		try {close = Double.parseDouble(list.get(2));} catch (Exception exc) {close = Math.random(); ticker = "NLL";}
-		try {adj = Double.parseDouble(list.get(3));} catch (Exception exc) {adj = Math.random(); ticker = "NLL";}
-		try {low = Double.parseDouble(list.get(4));} catch (Exception exc) {low = Math.random(); ticker = "NLL";}
-		try {high = Double.parseDouble(list.get(5));} catch (Exception exc) {high = Math.random(); ticker = "NLL";}
-		try {volume = Long.parseLong(list.get(6));} catch (Exception exc) {volume = (long)Math.random(); ticker = "NLL";}
-		try {date = LocalDate.parse(list.get(7), formatter);} catch (Exception exc) {date = randomDate(); ticker = "NLL";}
+		try {
+			ticker = list.get(0);
+			open = Double.parseDouble(list.get(1));
+			close = Double.parseDouble(list.get(2));
+			adj = Double.parseDouble(list.get(3));
+			low = Double.parseDouble(list.get(4));
+			high = Double.parseDouble(list.get(5));
+			volume = Long.parseLong(list.get(6));
+			date = LocalDate.parse(list.get(7), formatter);
+			}
+		catch (Exception exc) {
+			return null;
+			}
 		
 		stock = new StockObject(ticker, open, close, adj, low, high, volume, date);
 		return stock;
 	}
 	
-	public static LocalDate[] first_last(LocalDate[] fl, LocalDate date) {
+	public static StockObject[] first_last(StockObject[] fl, StockObject so) {
 			
-			if (date.compareTo(fl[0]) < 0)
-				fl[0] = date;
-			if (date.compareTo(fl[1]) > 0)
-				fl[1] = date;
+			if (so.getDate().compareTo(fl[0].getDate()) < 0)
+				fl[0] = so;
+			if (so.getDate().compareTo(fl[1].getDate()) > 0)
+				fl[1] = so;
 			return fl;
 			
 	}
