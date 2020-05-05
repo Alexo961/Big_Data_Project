@@ -12,10 +12,21 @@ import org.apache.hadoop.mapreduce.Reducer.Context;
 import Supports.StockObject;
 
 public class Job1Reducer extends
-Reducer<Text, List<String>, Text, StockObject > {
+Reducer<Text, StockObject, Text, List<String> > {
 	
-	public void reduce(Text key, Iterable<List<String>> values,
+	public void reduce(Text key, Iterable<StockObject> values,
 			Context context) throws IOException, InterruptedException {
    
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }
  }
