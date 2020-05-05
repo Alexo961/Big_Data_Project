@@ -25,9 +25,12 @@ public class Job1Mapper
     StockObject so;
     
     so = SupportObject.transform(list);
-    
-    context.write(word, so);
-	
+    if (so != null)
+    	context.write(word, so);
+    else {
+    	System.out.println("SALTO ELEMENTO SPURIO");
+    }
+    	
 	}
 	
 }
