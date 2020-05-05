@@ -19,8 +19,12 @@ import Supports.SupportObject;
 public class Job1Reducer extends
 Reducer<Text, StockObject, Text, Text > {
 
+	
+	private Map<Text, OutputObject> reduceMap = new HashMap<Text, OutputObject>();
+	 private Map<Text, Double> daSortareMap = new HashMap<Text, Double>();
+	
 	public void reduce(Text key, Iterable<StockObject> values,
-		Context context) throws IOException, InterruptedException {
+			Context context) throws IOException, InterruptedException {
 
 		Double variation;
 		int sum = 0;
@@ -30,8 +34,8 @@ Reducer<Text, StockObject, Text, Text > {
 		Double valore_min;
 		Double valore_max;
 		StringBuilder sb;
+
 		
-		 Map<Text, OutputObject> reduceMap = new HashMap<Text, OutputObject>();
 
 		for(StockObject value : values){
 			first_last = SupportObject.first_last(first_last, value);
@@ -39,16 +43,31 @@ Reducer<Text, StockObject, Text, Text > {
 			k +=1;
 			a = SupportObject.min_max(a, value.getClose());
 		}
-		
+
 		Double volume_medio = SupportObject.vol_med(sum, k);
-		
+
 		variation = SupportObject.variationquot(first_last[0].getOpen(), first_last[1].getClose());
 		valore_min = a[0];
 		valore_max = a[1];
-		
-		
-		Map<Text, Double> sortMap = new HashMap<Text, Double>();
-         
+
+
+		int numero_chiavi= daSortareMap.keySet().size();
+
+
+		@Override
+		protected void cleanup(Context context) throws IOException, InterruptedException {
+			Map<Text, Double> sortedMap = sortByValues(daSortareMap);
+			int counter = 0;
+			for (Text key : sortedMap.keySet()) {
+				if (counter++ == numero_chiavi) {
+					break;
+				}
+				context.write(key, sortedMap.get(key));
+			}
+		}
+
+
+
 	}
 
 }
