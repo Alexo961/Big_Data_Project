@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.hadoop.io.DoubleWritable;
+
 public class SupportObject {
 	
 	
@@ -94,9 +96,9 @@ public class SupportObject {
 	//ritorna il valore medio della quotaz. inserendo la somma dei valori medi e il numero di valori per ogni ticker
 	public static Double vol_med(double sum, int k) {
 		
-		Double valore = 0.0;
+		Double valore = new Double(0.0) ;
 		
-		valore =sum/k;
+		valore=(sum/k); 
 		
 		return valore;
 		
