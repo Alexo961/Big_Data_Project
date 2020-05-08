@@ -12,7 +12,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class Job1Mapper
-	extends Mapper<LongWritable, Text, Text, StockObject> {
+	extends Mapper<LongWritable, Text, Text, Text> {
 	
 	@Override
 	public void map(LongWritable key, Text value, Context context)
@@ -22,11 +22,10 @@ public class Job1Mapper
 	String ticker = line.split(",")[0];
     Text word = new Text(ticker);
     List<String> list = Arrays.asList(line.split(","));
-    StockObject so;
     
-    so = SupportObject.transform(list);
-    if (so != null)
-    	context.write(word, so);
+    if (list.size() == 8) {
+    	context.write(word, new Text(line));
+    }
     else {
     	System.out.println("SALTO ELEMENTO SPURIO");
     }

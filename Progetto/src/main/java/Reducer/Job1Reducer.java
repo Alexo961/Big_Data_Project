@@ -19,21 +19,21 @@ import Supports.SupportObject;
 
 
 public class Job1Reducer extends
-Reducer<Text, StockObject, Text, Text > {
+Reducer<Text, Text, Text, Text > {
 
 
 	private Map<Text, OutputObject> reduceMap = new HashMap<Text, OutputObject>();
 	private Map<Text, Double> daSortareMap = new HashMap<Text, Double>();
 	Double variation;
 
+	StockObject so;
 
 	Double valore_min;
 	Double valore_max;
 	StringBuilder sb;
 
-	public void reduce(Text key, Iterable<StockObject> values,
+	public void reduce(Text key, Iterable<Text> values,
 			Context context) throws IOException, InterruptedException {
-
 
 		int sum = 0;
 		int k= 0;
@@ -41,11 +41,15 @@ Reducer<Text, StockObject, Text, Text > {
 		StockObject[] first_last = new StockObject[2];
 
 
-		for(StockObject value : values){
-			first_last = SupportObject.first_last(first_last, value);
-			sum += value.getVolume();
-			k +=1;
-			a = SupportObject.min_max(a, value.getClose());
+		for(Text value : values){
+			List<String> list = Arrays.asList(value.toString().split(","));
+			so = SupportObject.transform(list);
+			if (so != null) {
+				first_last = SupportObject.first_last(first_last, so);
+				sum += so.getVolume();
+				k +=1;
+				a = SupportObject.min_max(a, so.getClose());
+			}
 		}
 
 		Double volume_medio = SupportObject.vol_med(sum, k);
@@ -92,7 +96,7 @@ Reducer<Text, StockObject, Text, Text > {
 		return appoggio1;
 
 	}
-	
+
 }
 
 

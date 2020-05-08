@@ -12,6 +12,8 @@ import support.Supports;
 
 public class SecondJobReducer extends Reducer<Text, Text, Text, Text> {
 
+	private static final int SECTOR_NUM_FIELDS = 5;
+	private static final int STOCK_NUM_FIELDS = 8;
 	private StockObject stock;
 	private SectorObject sect;
 	private ActionObject action;
@@ -22,6 +24,19 @@ public class SecondJobReducer extends Reducer<Text, Text, Text, Text> {
 		
 		for (Text line : lines) {
 			action = Supports.textToActionObject(line);
+			if (action == null)
+				System.out.println("BAD REDUCE LINE");
+			if (action.getNumFields() == SECTOR_NUM_FIELDS)
+				sect = (SectorObject) action;
+		}
+		for (Text line : lines) {
+			action = Supports.textToActionObject(line);
+			if (action == null)
+				System.out.println("BAD REDUCE LINE SKIPPED");
+			if (action.getNumFields() == STOCK_NUM_FIELDS) {
+				stock = (StockObject) action;
+				
+			}
 		}
 		
 	}

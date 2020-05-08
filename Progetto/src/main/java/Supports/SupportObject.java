@@ -14,7 +14,7 @@ public class SupportObject {
 	private Double ogettoDouble ;
 	private LocalDate ogettoDate;
 
-	private static String pattern = "yyyy/MM/dd";
+	private static String pattern = "yyyy-MM-dd";
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
 	public SupportObject(Double ogettoDouble, LocalDate ogettoDate) {
