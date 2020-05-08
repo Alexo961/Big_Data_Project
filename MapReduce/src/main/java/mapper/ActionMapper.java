@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import objects.StockObject;
 
-public class StockMapper extends Mapper<LongWritable, Text, Text, Text> {
+public class ActionMapper extends Mapper<LongWritable, Text, Text, Text> {
 	
 	private Text ticker;
 	
