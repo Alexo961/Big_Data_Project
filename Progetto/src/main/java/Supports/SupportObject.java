@@ -16,6 +16,7 @@ import org.apache.hadoop.io.Text;
 public class SupportObject {
 
 
+	//CIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAO
 	private Double ogettoDouble ;
 	private LocalDate ogettoDate;
 
