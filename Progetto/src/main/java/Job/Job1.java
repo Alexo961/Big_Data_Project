@@ -26,7 +26,7 @@ public class Job1 {
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(StockObject.class);
+		job.setOutputValueClass(Text.class);
 
 		job.waitForCompletion(true);
 	}
