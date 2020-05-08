@@ -39,6 +39,8 @@ Reducer<Text, Text, Text, Text > {
 		int k= 0;
 		Double[]a = new Double[2];
 		StockObject[] first_last = new StockObject[2];
+		
+		OutputObject output;
 
 
 		for(Text value : values){
@@ -60,12 +62,16 @@ Reducer<Text, Text, Text, Text > {
 		valore_max = a[1];
 
 		//inseriamo in mappa reduce map text e output object
-
+		 
+		 output = new OutputObject(key, variation, valore_min, valore_max, volume_medio);
+		 reduceMap.put(key, output);
 	}
-	int numero_chiavi= daSortareMap.keySet().size();
+	
 	@Override
 	protected void cleanup(Context context) throws IOException, InterruptedException {
-		Map<Text, Double> sortedMap = sortByValues(daSortareMap);
+		daSortareMap = SupportObject.sorted_dasortare(reduceMap);
+		Map<Text, Double> sortedMap = SupportObject.sortByValues(daSortareMap);
+		int numero_chiavi= sortedMap.keySet().size();
 		int counter = 0;
 		for (Text key : sortedMap.keySet()) {
 			if (counter++ == numero_chiavi) {
@@ -73,27 +79,6 @@ Reducer<Text, Text, Text, Text > {
 			}
 			context.write(key,new Text( reduceMap.get(key).toString()));
 		}
-
-
-
-	}
-	private Map<Text, Double> sortByValues(Map<Text, Double> map) {
-		Map<Text, Double> appoggio1= new HashMap<Text, Double>();
-
-		Map<Double, Text> appoggio2 = new HashMap<Double, Text>();
-		for (Text key : map.keySet()) {
-			appoggio2.put(map.get(key), key);
-
-		}
-		Set<Double> a=(appoggio2.keySet());
-		Double[] b= (Double[])a.toArray();
-		Arrays.sort(b);
-		for (Double key : b) {
-			appoggio1.put(appoggio2.get(key), key);
-
-		}
-
-		return appoggio1;
 
 	}
 
