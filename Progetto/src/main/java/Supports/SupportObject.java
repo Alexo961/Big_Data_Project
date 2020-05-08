@@ -2,16 +2,11 @@ package Supports;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.Text;
 
 public class SupportObject {
 
@@ -141,46 +136,6 @@ public class SupportObject {
 		}
 
 		return result;
-	}
-	
-	public static Map<Text, Double> sortByValues(Map<Text, Double> map) {
-		Map<Text, Double> appoggio1= new HashMap<Text, Double>();
-
-		Map<Double, Text> appoggio2 = new HashMap<Double, Text>();
-		for (Text key : map.keySet()) {
-			appoggio2.put(map.get(key), key);
-
-		}
-		Set<Double> a=(appoggio2.keySet());
-		Double[] b= (Double[])a.toArray();
-		Arrays.sort(b);
-		for (Double key : b) {
-			appoggio1.put(appoggio2.get(key), key);
-
-		}
-
-		return appoggio1;
-
-	}
-	
-	
-	public static Map<Text, Double> sorted_dasortare (Map<Text, OutputObject> map) {
-		Map<Text, Double> appoggio1= new HashMap<Text, Double>();
-
-		Map<Double, Text> appoggio2 = new HashMap<Double, Text>();
-		for (Text key : map.keySet()) {
-			appoggio2.put(map.get(key).getVariazione(), key);
-
-		}
-		
-		for (Double key : appoggio2.keySet()) {
-			
-			appoggio1.put(appoggio2.get(key), key);
-
-		}
-
-		return appoggio1;
-
 	}
 
 }
