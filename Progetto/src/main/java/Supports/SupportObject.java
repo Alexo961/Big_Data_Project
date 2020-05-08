@@ -104,11 +104,10 @@ public class SupportObject {
 		}
 	}
 	//ritorna il valore medio della quotaz. inserendo la somma dei valori medi e il numero di valori per ogni ticker
-	public static Double vol_med(double sum, int k) {
+	public static Double vol_med(long sum, int k) {
 
-		Double valore = new Double(0.0) ;
-
-		valore=(sum/k); 
+		double med = sum/k;
+		Double valore = new Double(med);
 
 		return valore;
 
@@ -125,19 +124,20 @@ public class SupportObject {
 	}
 
 	public static Double variationquot(Double iniz,Double finale) {
-		Double result=(double) 0;
+		Double variation;
 		try {
 
-			result = ((finale-iniz)/ iniz) * 100;
-			double roundOff = (double) Math.round(result * 100) / 100;
-			result = roundOff;
+			double result = ((finale-iniz)/ iniz) * 100;
+			double roundOff = (double) (Math.round(result * 100) / 100);
+			variation = new Double(result);
 
 
 		}catch(Exception e) {
-		
+			variation = new Double(0.0);
+			System.out.println("NON FUNZIONA!");
 		}
 
-		return result;
+		return variation;
 	}
 	
 	public static Map<Text, Double> sortByValues(Map<Text, Double> map) {
