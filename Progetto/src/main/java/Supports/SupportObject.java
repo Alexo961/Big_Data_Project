@@ -47,7 +47,7 @@ public class SupportObject {
 
 	public static StockObject transform(List<String> list) {
 		StockObject stock;
-		String ticker;
+		String pippo;
 		Double open;
 		Double close;
 		Double adj;
@@ -57,7 +57,7 @@ public class SupportObject {
 		LocalDate date;
 
 		try {
-			ticker = list.get(0);
+			pippo = list.get(0);
 			open = Double.parseDouble(list.get(1));
 			close = Double.parseDouble(list.get(2));
 			adj = Double.parseDouble(list.get(3));
@@ -70,7 +70,7 @@ public class SupportObject {
 			return null;
 		}
 
-		stock = new StockObject(ticker, open, close, adj, low, high, volume, date);
+		stock = new StockObject(pippo, open, close, adj, low, high, volume, date);
 		return stock;
 	}
 

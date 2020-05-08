@@ -24,6 +24,8 @@ public class Job1Mapper
     List<String> list = Arrays.asList(line.split(","));
     
     if (list.size() == 8) {
+    	if(list.get(0).toString().equals("ticker"))
+    		System.out.println("SALTO_PRIMA_RIGA");
     	context.write(word, new Text(line));
     }
     else {

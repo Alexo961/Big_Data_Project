@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.Set;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.xbill.DNS.TXTRecord;
 
 import Supports.OutputObject;
 import Supports.StockObject;
@@ -45,6 +47,10 @@ Reducer<Text, Text, Text, Text > {
 		for(Text value : values){
 			List<String> list = Arrays.asList(value.toString().split(","));
 			so = SupportObject.transform(list);
+			System.out.println("CHIAVE:");
+			System.out.println(key.toString());
+			System.out.println(so.getTicker());
+			System.out.println(so.getClose().toString());
 			if (so != null) {
 				first_last = SupportObject.first_last(first_last, so);
 				sum += so.getVolume();
@@ -65,9 +71,10 @@ Reducer<Text, Text, Text, Text > {
 		 reduceMap.put(key, output);
 
 	}
-	
+
 	@Override
 	protected void cleanup(Context context) throws IOException, InterruptedException {
+		System.out.println("ENTRATI NEL CLEANUP");
 		daSortareMap = SupportObject.sorted_dasortare(reduceMap);
 		Map<Text, Double> sortedMap = SupportObject.sortByValues(daSortareMap);
 		int numero_chiavi= daSortareMap.keySet().size();
