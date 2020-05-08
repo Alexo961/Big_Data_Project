@@ -11,6 +11,7 @@ import org.apache.hadoop.io.DoubleWritable;
 public class SupportObject {
 
 
+	//CIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAO
 	private Double ogettoDouble ;
 	private LocalDate ogettoDate;
 
