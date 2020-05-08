@@ -28,6 +28,8 @@ public class JobOneSupports {
 			minMax = new double[2];
 			minMax[0]= newPrice;
 			minMax[1] = newPrice;
+			System.out.println("ERA NULLO, L'HO INIZIALIZZATO");
+			System.out.println();
 			return minMax;
 		}
 		else {
@@ -40,6 +42,8 @@ public class JobOneSupports {
 	}
 
 	public static double mediumVolume(long sum, int k) {
+		if(k == 0)
+			return 0;
 		double med = sum/k;
 		return med;
 	}

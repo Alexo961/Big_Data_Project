@@ -14,7 +14,7 @@ import objects.StockObject;
 
 public class ObjectSupports {
 
-	private static final String DATE_PATTERN = "yyyy/MM/dd";
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 	private static final int STOCK_NUM_FIELDS = 8;
 	private static final int SECTOR_NUM_FILEDS = 5;
@@ -112,7 +112,7 @@ public class ObjectSupports {
 				sb.append(",");
 			}
 			String line = sb.toString();
-			line.substring(0, (line.length() -1));
+			line.substring(0, (line.length() -2));
 			return new Text(line);
 		}
 	}
@@ -120,8 +120,9 @@ public class ObjectSupports {
 	public static List<String> textToList(Text text){
 		String line = text.toString();
 		String[] array = line.split(",");
-		if(array.length > 0)
+		if(array.length > 0) {
 			return Arrays.asList(array);
+		}
 		else
 			return null;
 	}
@@ -129,8 +130,9 @@ public class ObjectSupports {
 	public static ActionObject textToActionObject(Text text) {
 		List<String> list;
 		list = textToList(text);
-		if (list.size() == STOCK_NUM_FIELDS)
+		if (list.size() == STOCK_NUM_FIELDS) {
 			return listToStockObject(list);
+		}
 		if (list.size() == SECTOR_NUM_FILEDS)
 			return listToSectorObject(list);
 		return null;

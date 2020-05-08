@@ -13,7 +13,6 @@ import support.ObjectSupports;
 public class FirstJobFirstReducer
 extends Reducer<Text, Text, Text, Text> {
 
-	JobOneOutOne out;
 	StockObject stock;
 	double variation;
 	double minimum;
@@ -27,6 +26,7 @@ extends Reducer<Text, Text, Text, Text> {
 		StockObject[] firstLastStock = null;
 		long sumOfVolumes = 0;
 		int numValues = 0;
+		System.out.println(key.toString());
 		for (Text value : values) {
 			stock = (StockObject) ObjectSupports.textToActionObject(value);
 			if (stock != null) {
@@ -37,8 +37,13 @@ extends Reducer<Text, Text, Text, Text> {
 						.minMaxPrice(minMaxPrice, stock.getClose().doubleValue());
 			}
 		}
-
+		
 		mediumVolume = JobOneSupports.mediumVolume(sumOfVolumes, numValues);
+		
+		if (firstLastStock[0] == null)
+			System.out.println("OPEN NULL " + key.toString());
+		if (firstLastStock[1] == null)
+			System.out.println("CLOSE NULL " + key.toString());
 		variation = JobOneSupports
 				.variationQuotation(firstLastStock[0].getOpen(), firstLastStock[1].getClose());
 		minimum = minMaxPrice[0];
