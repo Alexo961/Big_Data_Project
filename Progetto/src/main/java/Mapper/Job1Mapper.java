@@ -3,6 +3,7 @@ package Mapper;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import Supports.SupportObject;
 import Supports.StockObject;
@@ -19,8 +20,11 @@ public class Job1Mapper
 			throws IOException, InterruptedException {
 	
 	String line = value.toString();
+	
+
 	String ticker = line.split(",")[0];
-    Text word = new Text(ticker);
+    Text word = new Text();
+    word.set(ticker);
     List<String> list = Arrays.asList(line.split(","));
     
     if (list.size() == 8) {

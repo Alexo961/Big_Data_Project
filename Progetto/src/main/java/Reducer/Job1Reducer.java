@@ -62,12 +62,13 @@ Reducer<Text, Text, Text, Text > {
 
 		//inseriamo in mappa reduce map text e output object
 		output = new OutputObject(key, variation, valore_min, valore_max, volume_medio);
-		 reduceMap.put(key, output);
+		reduceMap.put(key, output);
 
 	}
 	
 	@Override
 	protected void cleanup(Context context) throws IOException, InterruptedException {
+		System.out.println(reduceMap.keySet());
 		daSortareMap = SupportObject.sorted_dasortare(reduceMap);
 		Map<Text, Double> sortedMap = SupportObject.sortByValues(daSortareMap);
 		int numero_chiavi= daSortareMap.keySet().size();
