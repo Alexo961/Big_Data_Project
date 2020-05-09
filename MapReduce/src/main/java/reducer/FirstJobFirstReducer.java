@@ -1,9 +1,13 @@
 package reducer;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.Reducer.Context;
+
 
 import objects.StockObject;
 import outputobjects.JobOneOutOne;
@@ -12,16 +16,24 @@ import support.ObjectSupports;
 
 public class FirstJobFirstReducer
 extends Reducer<Text, Text, Text, Text> {
+	
+	private Map<Text, JobOneOutOne> reduceMap = new HashMap<Text, JobOneOutOne>();
+	private Map<Text, Double> daSortareMap = new HashMap<Text, Double>();
 
 	StockObject stock;
 	double variation;
 	double minimum;
 	double maximum;
 	double mediumVolume;
+	
 
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
+		
+		JobOneOutOne output;
+
+		
 		double[] minMaxPrice = null;
 		StockObject[] firstLastStock = null;
 		long sumOfVolumes = 0;
@@ -48,6 +60,29 @@ extends Reducer<Text, Text, Text, Text> {
 				.variationQuotation(firstLastStock[0].getOpen(), firstLastStock[1].getClose());
 		minimum = minMaxPrice[0];
 		maximum = minMaxPrice[1];
-		context.write(key, JobOneSupports.firstOutput(variation, minimum, maximum, mediumVolume));
+		//context.write(key, JobOneSupports.firstOutput(variation, minimum, maximum, mediumVolume));
+		
+		
+		output = new JobOneOutOne(key.toString(), variation, minimum, maximum, mediumVolume);
+		reduceMap.put(key, output);
+
+	}
+	
+	@Override
+	protected void cleanup(Context context) throws IOException, InterruptedException {
+
+		daSortareMap = JobOneSupports.sorted_dasortare(reduceMap);
+		Map<Text, Double> sortedMap = JobOneSupports.sortByValues(daSortareMap);
+		int numero_chiavi= daSortareMap.keySet().size();
+		int counter = 0;
+		for (Text key : sortedMap.keySet()) {
+			if (counter++ == numero_chiavi) {
+				break;
+			}
+			context.write(key,new Text( reduceMap.get(key).toString()));
+		}
+
+
+
 	}
 }
