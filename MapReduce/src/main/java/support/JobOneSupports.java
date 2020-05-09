@@ -2,6 +2,7 @@ package support;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 import org.apache.hadoop.io.Text;
 
+import com.google.common.collect.Lists;
 
 import objects.StockObject;
 import outputobjects.JobOneOutOne;
@@ -70,6 +72,15 @@ public class JobOneSupports {
 		return ObjectSupports.listToText(list);
 	}
 	
+	public static Text outOneToText(JobOneOutOne output) {
+		List<String> list = new ArrayList<>();
+		list.add(0, Double.toString(output.getVariation()));
+		list.add(1, Double.toString(output.getMinimum()));
+		list.add(2, Double.toString(output.getMinimum()));
+		list.add(3, Double.toString(output.getMeanVolume()));
+		return ObjectSupports.listToText(list);
+	}
+	
 	
 	public static Map<Text, Double> sortByValues(Map<Text, Double> map) {
 		Map<Text, Double> appoggio1= new HashMap<Text, Double>();
@@ -80,8 +91,8 @@ public class JobOneSupports {
 
 		}
 		Set<Double> a=(appoggio2.keySet());
-		Double[] b= (Double[])a.toArray();
-		Arrays.sort(b);
+		List<Double> b = new ArrayList<Double>(a);
+		Collections.sort(b);
 		for (Double key : b) {
 			appoggio1.put(appoggio2.get(key), key);
 
@@ -93,15 +104,27 @@ public class JobOneSupports {
 
 	public static Map<Text, Double> sorted_dasortare (Map<Text, JobOneOutOne> map) {
 		Map<Text, Double> appoggio1= new HashMap<Text, Double>();
+		System.out.println("MAPPA INPUT:");
+		for (Text key : map.keySet()) {
+			System.out.println(key.toString());
+			System.out.println(outOneToText(map.get(key)).toString());
+		}
 
 		Map<Double, Text> appoggio2 = new HashMap<Double, Text>();
 		for (Text key : map.keySet()) {
+			System.out.println("APPOGGIO1");
+			System.out.println(map.size());
+			System.out.println("DENTRO APPOGGIO 2 METTO:");
+			System.out.println(map.get(key).getVariation().toString());
+			System.out.println(key.toString());
 			appoggio2.put(map.get(key).getVariation(), key);
 
 		}
 
 		for (Double key : appoggio2.keySet()) {
-
+			
+			System.out.println("APPOGGIO2");
+			System.out.println(appoggio2.size());
 			appoggio1.put(appoggio2.get(key), key);
 
 		}

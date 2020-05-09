@@ -64,7 +64,11 @@ extends Reducer<Text, Text, Text, Text> {
 		
 		
 		output = new JobOneOutOne(key.toString(), variation, minimum, maximum, mediumVolume);
-		reduceMap.put(key, output);
+		System.out.println("PRIMA DEL PUT");
+		System.out.println(key.toString());
+		reduceMap.put(new Text(key), output);
+		System.out.println("DOPO DEL PUT");
+		System.out.println(key.toString());
 
 	}
 	
@@ -77,9 +81,14 @@ extends Reducer<Text, Text, Text, Text> {
 		int counter = 0;
 		for (Text key : sortedMap.keySet()) {
 			if (counter++ == numero_chiavi) {
+				System.out.println("NUMERO CHIAVI:");
+				System.out.println(numero_chiavi);
 				break;
 			}
-			context.write(key,new Text( reduceMap.get(key).toString()));
+			System.out.println("NUMERO CHIAVI:");
+			System.out.println(numero_chiavi);
+			System.out.println(reduceMap.size());
+			context.write(key, JobOneSupports.outOneToText(reduceMap.get(key)));
 		}
 
 
