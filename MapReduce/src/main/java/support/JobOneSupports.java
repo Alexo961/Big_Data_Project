@@ -41,10 +41,15 @@ public class JobOneSupports {
 			return minMax;
 		}
 		else {
-			if (newPrice < minMax[0])
+			System.out.println("AGGIORNO MINMAX");
+			if (newPrice < minMax[0]) {
 				minMax[0] = newPrice;
-			if (newPrice > minMax[1])
+				System.out.println(minMax[0] + " " + minMax[1]);
+			}
+			if (newPrice > minMax[1]) {
+				System.out.println(minMax[0] + " " + minMax[1]);
 				minMax[1] = newPrice;
+			}
 			return minMax;
 		}
 	}
@@ -76,7 +81,7 @@ public class JobOneSupports {
 		List<String> list = new ArrayList<>();
 		list.add(0, Double.toString(output.getVariation()));
 		list.add(1, Double.toString(output.getMinimum()));
-		list.add(2, Double.toString(output.getMinimum()));
+		list.add(2, Double.toString(output.getMaximum()));
 		list.add(3, Double.toString(output.getMeanVolume()));
 		return ObjectSupports.listToText(list);
 	}

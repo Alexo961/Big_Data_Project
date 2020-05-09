@@ -52,6 +52,9 @@ extends Reducer<Text, Text, Text, Text> {
 		
 		mediumVolume = JobOneSupports.mediumVolume(sumOfVolumes, numValues);
 		
+		System.out.println("MINPRICE: " + minMaxPrice[0]);
+		System.out.println("MANPRICE: " + minMaxPrice[1]);
+		
 		if (firstLastStock[0] == null)
 			System.out.println("OPEN NULL " + key.toString());
 		if (firstLastStock[1] == null)
