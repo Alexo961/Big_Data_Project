@@ -111,8 +111,8 @@ public class ObjectSupports {
 				sb.append(it.next());
 				sb.append(",");
 			}
+			sb.deleteCharAt(sb.length() - 1);
 			String line = sb.toString();
-			line.substring(0, (line.length() -2));
 			return new Text(line);
 		}
 	}
