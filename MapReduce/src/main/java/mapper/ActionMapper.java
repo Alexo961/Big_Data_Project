@@ -10,25 +10,30 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import objects.StockObject;
 
-public class StockMapper extends Mapper<LongWritable, Text, Text, Text> {
-	
+public class ActionMapper extends Mapper<LongWritable, Text, Text, Text> {
+
 	private Text ticker;
-	
+
 	@Override
 	public void map(LongWritable key, Text value, Context context) 
 			throws IOException, InterruptedException {
-		
+
 		try {
-		String line = value.toString();
-		List<String> list = Arrays.asList(line.split(","));
-		String tickerString = list.get(0);
-		ticker = new Text(tickerString);
-		context.write(ticker, value);
+			String line = value.toString();
+			List<String> list = Arrays.asList(line.split(","));
+			String tickerString = list.get(0);
+			if (tickerString.equals("ticker")) {
+				System.out.println("SKIPPED FIRST LINE");
+			}
+			else {
+				ticker = new Text(tickerString);
+				context.write(ticker, value);
+			}
 		}
-		
+
 		catch(Exception exc) {
 			System.out.println("BAD LINE SKIPPED");
 		}
-		
+
 	}
 }
