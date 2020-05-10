@@ -10,7 +10,7 @@ import objects.SectorObject;
 import objects.StockObject;
 import support.ObjectSupports;
 
-public class SecondJobReducer extends Reducer<Text, Text, Text, Text> {
+public class Test extends Reducer<Text, Text, Text, Text> {
 
 	private static final int SECTOR_NUM_FIELDS = 5;
 	private static final int STOCK_NUM_FIELDS = 8;
