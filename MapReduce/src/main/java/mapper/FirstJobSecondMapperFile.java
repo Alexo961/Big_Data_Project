@@ -23,6 +23,6 @@ public class FirstJobSecondMapperFile extends MapReduceBase implements Mapper<Lo
 	
 		String valueString = value.toString();
 		String[] SingleNodeData = valueString.split(",");
-		output.collect(new TextPair(SingleNodeData[0], "0"), new Text(SingleNodeData[1]));//This output collector exposes the API for emitting tuples from an IRichBolt. This is the core API for emitting tuples. For a simpler API, and a more restricted form of stream processing, see IBasicBolt and BasicOutputCollector.
+		output.collect(new TextPair(SingleNodeData[0], "1"), new Text(SingleNodeData[1]));//This output collector exposes the API for emitting tuples from an IRichBolt. This is the core API for emitting tuples. For a simpler API, and a more restricted form of stream processing, see IBasicBolt and BasicOutputCollector.
 	}
 }
