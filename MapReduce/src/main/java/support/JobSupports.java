@@ -200,11 +200,11 @@ public class JobSupports {
 		return fl;
 	}
 	
-	public static String variationAnnualQuotation(String[] fl) {
+	public static Double variationAnnualQuotation(String[] fl) {
 		Double first = Double.parseDouble(fl[0].split("_")[5]);
 		Double last = Double.parseDouble(fl[1].split("_")[5]);
 		Double result = ((last - first)/first *100);
-		return result.toString();
+		return result;
 	}
 	
 }
