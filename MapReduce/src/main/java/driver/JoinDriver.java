@@ -50,17 +50,17 @@ public class JoinDriver {
 		Path BInputPath = new Path(args[1]);
 		Path outputPath = new Path(args[2]);
 
-		MultipleInputs.addInputPath(job, AInputPath, TextInputFormat.class, FirstJobFirstMapperFile.class);
-		MultipleInputs.addInputPath(job, BInputPath, TextInputFormat.class, FirstJobSecondMapperFile.class);
+		//MultipleInputs.addInputPath(job, AInputPath, TextInputFormat.class, FirstJobFirstMapperFile.class);
+		//MultipleInputs.addInputPath(job, BInputPath, TextInputFormat.class, FirstJobSecondMapperFile.class);
 
 		FileOutputFormat.setOutputPath(job, outputPath);
 
 		job.setPartitionerClass(KeyPartitioner.class);
-		job.setGroupingComparatorClass(TextPair.FirstComparator.class);
+		//job.setGroupingComparatorClass(TextPair.FirstComparator.class);
 
 		job.setMapOutputKeyClass(TextPair.class);
 
-		job.setReducerClass(JoinReducer.class);
+		//job.setReducerClass(JoinReducer.class);
 
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);

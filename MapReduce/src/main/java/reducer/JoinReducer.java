@@ -4,21 +4,24 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Reducer;
+//import org.apache.hadoop.mapreduce.Reducer;
 import support.*;
+import org.apache.hadoop.mapred.*;
 
-public class JoinReducer extends  Reducer<TextPair, Text, Text, Text> {
+public class JoinReducer extends MapReduceBase implements  Reducer<TextPair, Text, Text, Text> {
 
 	@Override
-	public void reduce(TextPair key, Iterable<Text> values, Context context)
-			throws IOException, InterruptedException {
-		 Iterator<Text> iterator = values.iterator();
-		Text nodeId = new Text(iterator.next());
-		while (iterator.hasNext()) {
-			Text node = iterator.next();
+	public void reduce(TextPair key, Iterator<Text> values, OutputCollector<Text, Text> output, Reporter reporter)
+			throws IOException {
+		
+		Text nodeId = new Text(values.next());
+		while (values.hasNext()) {
+			Text node = values.next();
 			Text outValue = new Text(nodeId.toString() + "," + node.toString());
-			context.write(key.getFirst(), outValue);
+			output.collect(key.getFirst(), outValue);
 		}
 	}
+
+
 }
 

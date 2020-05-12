@@ -116,6 +116,17 @@ public class ObjectSupports {
 			return new Text(line);
 		}
 	}
+	
+	public static String StringToText(String[] str, int lim1, int lim2) {
+		String finale = new String();
+		for(int i=0 ; i< str.length; i++) {
+			if(i!=lim1 && i!=lim2)
+		finale =	finale.concat(str[i]+",");
+			
+		}
+		
+		return finale;
+	}
 
 	public static List<String> textToList(Text text){
 		String line = text.toString();
