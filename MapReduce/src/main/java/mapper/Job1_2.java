@@ -32,6 +32,7 @@ public class Job1_2 extends Mapper<LongWritable, Text, Text, Text> {
 			String yearString = year.toString();
 			String settore_data = str[1]+ "_" + yearString;
 			Text chiave = new Text(settore_data);
+			Text valore = new Text(str[7]+"_"+str[3]+"_"+str[4]+"_"+str[8]+)
 			context.write(chiave, value);
 		}
 
