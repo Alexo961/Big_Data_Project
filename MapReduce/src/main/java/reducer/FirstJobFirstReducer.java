@@ -13,7 +13,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import comparator.JobOneVariationComp;
 import objects.StockObject;
 import outputobjects.JobOneOutOne;
-import support.JobOneSupports;
+import support.JobSupports;
 import support.ObjectSupports;
 
 public class FirstJobFirstReducer
@@ -45,15 +45,15 @@ extends Reducer<Text, Text, Text, Text> {
 		for (Text value : values) {
 			stock = (StockObject) ObjectSupports.textToActionObject(value);
 			if (stock != null) {
-				firstLastStock = JobOneSupports.firstLastStock(firstLastStock, stock);
+				firstLastStock = JobSupports.firstLastStock(firstLastStock, stock);
 				sumOfVolumes += stock.getVolume().longValue();
 				numValues++;
-				minMaxPrice = JobOneSupports
+				minMaxPrice = JobSupports
 						.minMaxPrice(minMaxPrice, stock.getClose().doubleValue());
 			}
 		}
 
-		mediumVolume = JobOneSupports.mediumVolume(sumOfVolumes, numValues);
+		mediumVolume = JobSupports.mediumVolume(sumOfVolumes, numValues);
 
 		//System.out.println("MINPRICE: " + minMaxPrice[0]);
 		//System.out.println("MANPRICE: " + minMaxPrice[1]);
@@ -62,7 +62,7 @@ extends Reducer<Text, Text, Text, Text> {
 		//System.out.println("OPEN NULL " + key.toString());
 		//if (firstLastStock[1] == null)
 		//System.out.println("CLOSE NULL " + key.toString());
-		variation = JobOneSupports
+		variation = JobSupports
 				.variationQuotation(firstLastStock[0].getOpen(), firstLastStock[1].getClose());
 		minimum = minMaxPrice[0];
 		maximum = minMaxPrice[1];
@@ -109,7 +109,7 @@ extends Reducer<Text, Text, Text, Text> {
 		Iterator<JobOneOutOne> itr = variationSet.iterator();
 		while (itr.hasNext()){
 			JobOneOutOne out = itr.next();
-			context.write(new Text(out.getTicker()), JobOneSupports.outOneToText(out));
+			context.write(new Text(out.getTicker()), JobSupports.outOneToText(out));
 		}
 	}
 }

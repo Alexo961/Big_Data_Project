@@ -15,7 +15,7 @@ import com.google.common.collect.Lists;
 import objects.StockObject;
 import outputobjects.JobOneOutOne;
 
-public class JobOneSupports {
+public class JobSupports {
 
 	public static StockObject[] firstLastStock(StockObject[] fl, StockObject so) {
 		if (fl == null) {
@@ -136,6 +136,37 @@ public class JobOneSupports {
 
 		return appoggio1;
 
+	}
+	
+	
+	
+	public  static Double medVolAnn (int k , Double sum) {
+		return sum/k;
+		
+	}
+	public  static Double medquotAnn (int k , Double sum) {
+		return sum/k;
+		
+	}
+	
+	public static void azzer_mappa(Double quotazione, Text ticker) {
+		Map<Text,Double> map = new HashMap<Text, Double>();
+		JobSupports.media_per_ticker(quotazione, ticker, map);
+		
+	}
+	
+	public static Double  media_per_ticker(Double quotazione, Text ticker , Map<Text,Double> map) {
+		
+		if() {
+			
+		}else {
+			
+		}
+		
+		
+		
+		return null;
+		
 	}
 	
 }

@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import objects.StockObject;
 
-public class Job1_2 extends Mapper<LongWritable, Text, Text, Text> {
+public class Job2Map2Mapper extends Mapper<LongWritable, Text, Text, Text> {
 
 	private Text ticker;
 	private static final String DATE_PATTERN = "yyyy-MM-dd";
