@@ -31,16 +31,20 @@ extends Reducer<Text, Text, Text, Text> {
         sum_quot=0.0;
 		count =0;
 		sum_vol =0.0;
+		String[] firstLast = null;
+		
 		for (Text value : values) {
 			String[] split = value.toString().split("_");
 			count += 1;
 			sum_vol +=  Double.parseDouble(split[0]);
 			sum_quot += Double.parseDouble(split[5]);
+			firstLast = JobSupports.firstLast(firstLast, value.toString());
 			
 			}
 		
          Double vol_med = JobSupports.medVolAnn(count, sum_vol);
          Double quot_med = JobSupports.medVolAnn(count, sum_quot);
+         String variation = JobSupports.variationAnnualQuotation(firstLast);
 		
 
 		context.write(new Text(out.getTicker()), JobSupports.outOneToText(out));

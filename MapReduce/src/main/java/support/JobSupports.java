@@ -1,5 +1,7 @@
 package support;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,6 +18,10 @@ import objects.StockObject;
 import outputobjects.JobOneOutOne;
 
 public class JobSupports {
+	
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
+
 
 	public static StockObject[] firstLastStock(StockObject[] fl, StockObject so) {
 		if (fl == null) {
@@ -167,6 +173,31 @@ public class JobSupports {
 		
 		return null;
 		
+	}
+	
+	public static String[] firstLast(String[] fl, String line) {
+		if (fl == null) {
+			fl = new String[2];
+			fl[0] = line;
+			fl[1] = line;
+			return fl;
+		}
+		LocalDate first, last, newDate;
+		first = LocalDate.parse(fl[0].split("_")[3],DATE_TIME_FORMATTER);
+		last = LocalDate.parse(fl[1].split("_")[3],DATE_TIME_FORMATTER);
+		newDate = LocalDate.parse(line.split("_")[3],DATE_TIME_FORMATTER);
+		if (first.compareTo(newDate) > 0)
+			fl[0] = line;
+		if (last.compareTo(newDate) < 0)
+			fl[1] = line;
+		return fl;
+	}
+	
+	public static String variationAnnualQuotation(String[] fl) {
+		Double first = Double.parseDouble(fl[0].split("_")[5]);
+		Double last = Double.parseDouble(fl[1].split("_")[5]);
+		Double result = ((last - first)/first *100);
+		return result.toString();
 	}
 	
 }
