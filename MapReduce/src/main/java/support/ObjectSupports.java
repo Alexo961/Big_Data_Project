@@ -124,6 +124,7 @@ public class ObjectSupports {
 		finale =	finale.concat(str[i]+",");
 			
 		}
+		finale = finale.substring(0, finale.length() - 1);
 		
 		return finale;
 	}
