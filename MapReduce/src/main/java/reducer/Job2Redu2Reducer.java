@@ -28,23 +28,28 @@ extends Reducer<Text, Text, Text, Text> {
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
-		
+
 		Map<Text,Double> map_quotation = new HashMap<Text, Double>();
 		sum_quot=0.0;
 		count =0;
 		sum_vol =0.0;
+		String[] firstLast = null;
+
 		for (Text value : values) {
 			String[] split = value.toString().split("_");
 			count += 1;
 			sum_vol +=  Double.parseDouble(split[0]);
 			sum_quot += Double.parseDouble(split[5]);
+			firstLast = JobSupports.firstLast(firstLast, value.toString());
+
+         Double vol_med = JobSupports.medVolAnn(count, sum_vol);
 			map_quotation = JobSupports.media_per_ticker(new Double(split[5]), new Text(split [6]), map_quotation);
 
 		}
 
 		Double vol_med = JobSupports.medVolAnn(count, sum_vol);
 		Double quot_med = JobSupports.medVolAnn(count, sum_quot);
-        
+
 
 		context.write(key, new Text(vol_med+","++","+JobSupports.stampa_mappa(map_quotation)));
 
