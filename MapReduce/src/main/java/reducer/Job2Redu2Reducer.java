@@ -21,14 +21,16 @@ extends Reducer<Text, Text, Text, Text> {
 
 
 
-     int count;
-     Double sum_vol;
-     Double sum_quot;
+	int count;
+	Double sum_vol;
+	Double sum_quot;
 
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
-        sum_quot=0.0;
+		
+		Map<Text,Double> map_quotation = new HashMap<Text, Double>();
+		sum_quot=0.0;
 		count =0;
 		sum_vol =0.0;
 		for (Text value : values) {
@@ -36,18 +38,19 @@ extends Reducer<Text, Text, Text, Text> {
 			count += 1;
 			sum_vol +=  Double.parseDouble(split[0]);
 			sum_quot += Double.parseDouble(split[5]);
-			
-			}
-		
-         Double vol_med = JobSupports.medVolAnn(count, sum_vol);
-         Double quot_med = JobSupports.medVolAnn(count, sum_quot);
-		
+			map_quotation = JobSupports.media_per_ticker(new Double(split[5]), new Text(split [6]), map_quotation);
 
-		context.write(new Text(out.getTicker()), JobSupports.outOneToText(out));
+		}
+
+		Double vol_med = JobSupports.medVolAnn(count, sum_vol);
+		Double quot_med = JobSupports.medVolAnn(count, sum_quot);
+        
+
+		context.write(key, new Text(vol_med+","+ +","+JobSupports.stampa_mappa(map_quotation)));
 
 	}
-	
-	
+
+
 
 
 
