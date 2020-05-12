@@ -155,23 +155,30 @@ public class JobSupports {
 		
 	}
 	
-	public static void azzer_mappa(Double quotazione, Text ticker) {
-		Map<Text,Double> map = new HashMap<Text, Double>();
-		JobSupports.media_per_ticker(quotazione, ticker, map);
-		
-	}
 	
-	public static Double  media_per_ticker(Double quotazione, Text ticker , Map<Text,Double> map) {
+	public static Map<Text,Double>  media_per_ticker(Double quotazione, Text ticker , Map<Text,Double> map) {
 		
-		if() {
+		if(!map.containsKey(ticker)) {
+			
+			map.put(ticker, quotazione);
 			
 		}else {
+			
+			Double value = map.get(ticker).doubleValue();
+		    map.put(ticker,(value + quotazione) )	;
 			
 		}
 		
 		
+		return map;
 		
-		return null;
+	}
+	
+	public static Text stampa_mappa(Map<Text,Double> map) {
+		
+		
+		 Text text = new Text(map.toString());
+		 return text;
 		
 	}
 	
