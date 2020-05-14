@@ -15,7 +15,7 @@ import support.TextPair;
 
 public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<LongWritable, Text, TextPair, Text> {
 
-	
+
 	private static final int TICKER_POSITION = 0;
 	private static final int NAME_POSITION = 1;
 
@@ -27,13 +27,18 @@ public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<Lon
 
 		String valueString = value.toString();
 		String[] SingleNodeData = valueString.split(",");
-		
-		
-		String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, NAME_POSITION);
+		if (SingleNodeData[0].equals("ticker")) {
+			System.out.println("SKIPPED HEADER");
+		}
+		else {
+
+
+			String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, NAME_POSITION);
 
 
 
-		output.collect(new TextPair(SingleNodeData[0], "0"),new Text(finale) );
+			output.collect(new TextPair(SingleNodeData[0], "0"),new Text(finale) );
+		}
 		//  This output collector exposes the API for emitting tuples from an IRichBolt. This is the core API for emitting tuples. For a simpler API, and a more restricted form of stream processing, see IBasicBolt and BasicOutputCollector.
 	}
 }

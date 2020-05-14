@@ -26,6 +26,15 @@ public class Job2Map2Mapper extends Mapper<LongWritable, Text, Text, Text> {
 
 		String line = value.toString();
 		String[] str = line.split(",");
+		if(str.length == 10) {
+			String tickerAndName = str[0] + "," + str[1];
+			String newStr[] = new String[9];
+			newStr[0] = tickerAndName;
+			for (int j = 1; j < 9; j++) {
+				newStr[j] = str[j+1];
+			}
+			str = newStr;
+		}
 		if(str.length == 9) {
 			date = LocalDate.parse(str[8], DATE_TIME_FORMATTER);
 			Integer year = date.getYear();
