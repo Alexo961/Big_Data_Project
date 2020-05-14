@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import objects.StockObject;
 
-public class Job2Map2Mapper extends Mapper<LongWritable, Text, Text, Text> {
+public class Job3Map3Mapper extends Mapper<LongWritable, Text, Text, Text> {
 
 	private Text ticker;
 	private static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -32,11 +32,11 @@ public class Job2Map2Mapper extends Mapper<LongWritable, Text, Text, Text> {
 			String yearString = year.toString();
 			
 			String nome = str[0].split("\t")[1];
+			String nome_data = nome+ "_" + yearString;
 			String ticker = str[0].split("\t")[0];
-			String settore_data = str[1]+ "_" + yearString;
-			String quotazione = String.valueOf((Double.parseDouble(str[4]) - Double.parseDouble(str[3])));
-			Text chiave = new Text(settore_data);
-			Text valore = new Text(str[7]+"_"+str[3]+"_"+str[4]+"_"+str[8]+"_" +nome +"_"+ quotazione+"_"+ticker);//volume_open_close_data_nomeazienda_quotazione
+			String quotazione = String.valueOf((Double.parseDouble(str[4]) - Double.parseDouble(str[3])));//differenza tra prezzo di apertura e chiusura azione
+			Text chiave = new Text(nome_data);
+			Text valore = new Text(yearString+"_" +nome +"_"+ quotazione+"_"+ticker);//Anno_nome_azienda_quotazione
 			context.write(chiave, valore);
 		}
 
