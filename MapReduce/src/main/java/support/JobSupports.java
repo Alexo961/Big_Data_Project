@@ -215,8 +215,25 @@ public class JobSupports {
 		return result;
 	}
 	public static Double variationAnnualQuotation3(String[] fl) {
-		Double first = Double.parseDouble(fl[0].split("_")[3]);
-		Double last = Double.parseDouble(fl[1].split("_")[3]);
+		if (fl == null)
+			System.out.println("FL NULLO");
+		else if (fl[0] == null || fl[1] == null ) {
+			System.out.println("UNO DEI DUE è NULLO");
+			if (fl[0] != null)
+				System.out.println(fl[0]);
+			else 
+				System.out.println("FL0 NULLO");
+			if (fl[1] != null)
+				System.out.println(fl[1]);
+			else
+				System.out.println("FL1 NULLO");
+		}
+		else {
+			System.out.println(fl[0]);
+			System.out.println(fl[1]);
+		}
+		Double first = Double.parseDouble(fl[0].split("_")[2]);
+		Double last = Double.parseDouble(fl[1].split("_")[2]);
 		Double result = ((last - first)/first *100);
 		return result;
 	}
