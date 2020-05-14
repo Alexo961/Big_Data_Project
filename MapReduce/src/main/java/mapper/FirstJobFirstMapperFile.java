@@ -17,7 +17,7 @@ public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<Lon
 
 
 	private static final int TICKER_POSITION = 0;
-	private static final int NAME_POSITION = 1;
+	private static final int EXCHANGE_POSITION = 1;
 
 
 	@Override
@@ -33,7 +33,7 @@ public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<Lon
 		else {
 
 
-			String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, NAME_POSITION);
+		String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, EXCHANGE_POSITION);
 
 
 

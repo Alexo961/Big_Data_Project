@@ -16,7 +16,7 @@ import outputobjects.JobOneOutOne;
 import support.JobSupports;
 import support.ObjectSupports;
 
-public class Job2Redu2Reducer
+public class Job3Redu3Reducer
 extends Reducer<Text, Text, Text, Text> {
 
 
@@ -49,7 +49,6 @@ extends Reducer<Text, Text, Text, Text> {
 
 		Double vol_med = JobSupports.medVolAnn(count, sum_vol);
 		Double quot_med = JobSupports.medVolAnn(count, sum_quot);
-		
 
 
 		context.write(key, new Text(vol_med+","+JobSupports.variationAnnualQuotation(firstLast).toString()+","+JobSupports.stampa_mappa(map_quotation)));
