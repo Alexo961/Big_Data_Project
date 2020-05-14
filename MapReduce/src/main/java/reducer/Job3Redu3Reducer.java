@@ -38,6 +38,7 @@ extends Reducer<Text, Text, Text, Text> {
 		String  anno = key.toString().split("_")[1];
 
 		for (Text value : values) {
+			System.out.println(value.toString());
 			String[] split = value.toString().split("_");
 			
 			firstLast = JobSupports.firstLast(firstLast, value.toString());

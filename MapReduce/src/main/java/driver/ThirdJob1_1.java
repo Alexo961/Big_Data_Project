@@ -9,8 +9,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
 import mapper.Job2Map2Mapper;
-
+import mapper.Job3Map3Mapper;
 import reducer.Job2Redu2Reducer;
+import reducer.Job3Redu3Reducer;
 
 public class ThirdJob1_1 {
 
