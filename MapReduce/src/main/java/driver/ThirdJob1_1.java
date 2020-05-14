@@ -12,12 +12,12 @@ import mapper.Job2Map2Mapper;
 
 import reducer.Job2Redu2Reducer;
 
-public class ThirdJob {
+public class ThirdJob1_1 {
 
 	public static void main(String[] args) throws Exception {
 		Job job = Job.getInstance( new Configuration(),"Third Job");
 		
-        job.setJarByClass(ThirdJob.class);
+        job.setJarByClass(ThirdJob1_1.class);
 		
 		job.setMapperClass(Job3Map3Mapper.class);
 		job.setReducerClass(Job3Redu3Reducer.class);
