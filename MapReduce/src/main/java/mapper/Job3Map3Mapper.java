@@ -40,7 +40,7 @@ public class Job3Map3Mapper extends Mapper<LongWritable, Text, Text, Text> {
 			String quotazione = String.valueOf((Double.parseDouble(str[4]) - Double.parseDouble(str[3])));//differenza tra prezzo di apertura e chiusura azione
 			Text chiave = new Text(ticker_data);
 			
-			Text valore = new Text(ticker+"_" +nome +"_"+ quotazione+"_"+date.toString());//ticker_nomeazienda_quotazione_date
+			Text valore = new Text(ticker+"_" +nome +"_"+ quotazione+"_"+ date.toString());//ticker_nomeazienda_quotazione_date
 			
 			if(yearString.equals("2018")  || yearString.equals("2017") || yearString.equals("2016")) 
 			context.write(chiave, valore);

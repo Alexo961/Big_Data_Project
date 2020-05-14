@@ -207,8 +207,8 @@ public class JobSupports {
 		return result;
 	}
 	public static Double variationAnnualQuotation3(String[] fl) {
-		Double first = Double.parseDouble(fl[0].split("_")[3]);
-		Double last = Double.parseDouble(fl[1].split("_")[3]);
+		Double first = Double.parseDouble(fl[0].split("_")[2]);
+		Double last = Double.parseDouble(fl[1].split("_")[2]);
 		Double result = ((last - first)/first *100);
 		return result;
 	}
