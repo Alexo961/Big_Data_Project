@@ -31,16 +31,22 @@ public class Job3Map3Mapper extends Mapper<LongWritable, Text, Text, Text> {
 			Integer year = date.getYear();
 			String yearString = year.toString();
 			
+			
 			String nome = str[0].split("\t")[1];
-			String nome_data = nome+ "_" + yearString;
+		
 			String ticker = str[0].split("\t")[0];
+			
+			String ticker_data = ticker+ "_" + yearString;
 			String quotazione = String.valueOf((Double.parseDouble(str[4]) - Double.parseDouble(str[3])));//differenza tra prezzo di apertura e chiusura azione
-			Text chiave = new Text(nome_data);
-			Text valore = new Text(yearString+"_" +nome +"_"+ quotazione+"_"+ticker);//Anno_nome_azienda_quotazione
+			Text chiave = new Text(ticker_data);
+			
+			Text valore = new Text(ticker+"_" +nome +"_"+ quotazione+"_"+date.toString());//ticker_nomeazienda_quotazione_date
+			
+			if(yearString.equals("2018")  || yearString.equals("2017") || yearString.equals("2016")) 
 			context.write(chiave, valore);
-		}
+		    
 
-		else {
+		}else {
 
 			System.out.println("Riga spuria");
 		}

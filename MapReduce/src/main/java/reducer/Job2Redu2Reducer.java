@@ -52,7 +52,7 @@ extends Reducer<Text, Text, Text, Text> {
 		
 
 
-		context.write(key, new Text(vol_med+","+JobSupports.variationAnnualQuotation(firstLast).toString()+","+JobSupports.stampa_mappa(map_quotation)));
+		context.write(key, new Text(vol_med+","+JobSupports.variationAnnualQuotation2(firstLast).toString()+","+JobSupports.stampa_mappa(map_quotation)));
 
 	}
 
