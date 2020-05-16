@@ -20,17 +20,19 @@ public class Job3Map3Mapper_2 extends Mapper<LongWritable, Text, Text, Text> {
 			throws IOException, InterruptedException {
 
 		LocalDate date;
-
+         
 		String line = value.toString();
 		String[] str = line.split("_");
-		if(str.length == 3) {
+		String chiave = line.split("\t")[0];
+		String valore =line.split("\t")[1];
+		if(str.length == 4) {
 			
-			String yearString = str[0];
-			String variaz_quot = str[1];
-			String nome_azienda = str[2];
+			String yearString = chiave.split("_")[1];
+			String variaz_quot =  valore.split("_")[1];
+			String nome_azienda =  valore.split("_")[2];
 		
-			String chiave = nome_azienda +"_"+ variaz_quot;
-			context.write(new Text(chiave),new Text( yearString));
+			String keyless = nome_azienda+"_"+ variaz_quot;
+			context.write(new Text(keyless),new Text( yearString));
 		    
 
 		}else {
