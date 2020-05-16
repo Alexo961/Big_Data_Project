@@ -215,6 +215,8 @@ public class JobSupports {
 		return result;
 	}
 	public static Double variationAnnualQuotation3(String[] fl) {
+
+
 		if (fl == null)
 			System.out.println("FL NULLO");
 		else if (fl[0] == null || fl[1] == null ) {
@@ -232,6 +234,7 @@ public class JobSupports {
 			System.out.println(fl[0]);
 			System.out.println(fl[1]);
 		}
+
 		Double first = Double.parseDouble(fl[0].split("_")[2]);
 		Double last = Double.parseDouble(fl[1].split("_")[2]);
 		Double result = ((last - first)/first *100);
