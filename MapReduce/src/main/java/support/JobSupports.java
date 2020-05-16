@@ -237,7 +237,7 @@ public class JobSupports {
 
 		Double first = Double.parseDouble(fl[0].split("_")[2]);
 		Double last = Double.parseDouble(fl[1].split("_")[2]);
-		Double result = ((last - first)/first *100);
+		Double result = (double) (Math.round((((last - first)/first) *100)*100)/100);
 		return result;
 	}
 	

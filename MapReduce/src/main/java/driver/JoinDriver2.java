@@ -55,7 +55,8 @@ public class JoinDriver2 extends Configured implements Tool {
 
     		conf.setOutputKeyClass(Text.class);
     
-    		JobClient.runJob(conf);
+    		JobClient.runJob(conf);//QUANDO ESEGUI DA LINE ADI COMANDO
+    								//PRIMA STOCK E POI STOCK_PRIECES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		return 0;
 	}
