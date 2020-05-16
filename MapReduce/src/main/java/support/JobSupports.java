@@ -215,7 +215,8 @@ public class JobSupports {
 
 		
 		Double result;
-
+		
+		/*
 		if (fl == null)
 			System.out.println("FL NULLO");
 		if (fl[0] == null || fl[1] == null ) {
@@ -233,7 +234,7 @@ public class JobSupports {
 			System.out.println(fl[0]);
 			System.out.println(fl[1]);
 		}
-
+		*/
 		if (fl!= null) {
 
 		Double first = Double.parseDouble(fl[0].split("_")[2]);

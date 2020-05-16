@@ -2,6 +2,7 @@ package reducer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -23,44 +24,43 @@ extends Reducer<Text, Text, Text, Text> {
 
 
 
-	Map<Text,List<String>> map = new HashMap<Text, List<String>>();
-	Map<Double,List<String>> map2 = new HashMap<Double, List<String>>();
-	
+	Map<String, List<String>> name_variations = new HashMap<>();
+
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
-		
-		
-		List<String> s = new ArrayList<String>(); 
-		
+
+		StringBuilder sb = new StringBuilder();
 		int i = 0;
-		
 		for (Text value : values) {
-			    i ++;
-
-			
-			if(i == 3) {
-			    s = map.get(key.toString().split("_")[1]);
-			    if(s == null) s = new ArrayList<String>(); 
-				
-			    s.add(key.toString().split("_")[0]);
-				map.put(key,s);
-
-		
-		
-			}
+			sb.append(value.toString()).append("_");
+			i ++;
 		}
-
-		
-
-
-
-		context.write(key, new Text(map.toString()));
-
+		sb.deleteCharAt(sb.length() -1);
+		if(i == 3) {	
+			List<String> list = name_variations.get(sb.toString());
+			if (list == null)
+				list = new ArrayList<>();
+			list.add(key.toString());
+			name_variations.put(sb.toString(), list);
+		}
 	}
 
-
-
-
-
+	@Override
+	public void cleanup(Context context)
+			throws IOException, InterruptedException {
+		for (String key : name_variations.keySet()) {
+			if (name_variations.get(key).size() > 1) {
+				String replaced = key.replace("_", ", ");
+				StringBuilder sb = new StringBuilder();
+				sb.append("{");
+				for (String name : name_variations.get(key)) {
+					sb.append(name).append(", ");
+				}
+				sb.deleteCharAt(sb.length()-1);
+				sb.append("}");
+				context.write(new Text(sb.toString()), new Text(replaced));
+			}
+		}
+	}
 }
