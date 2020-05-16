@@ -176,16 +176,13 @@ public class JobSupports {
 	
 	public static Text stampa_mappa(Map<Text,Double> map) {
 		StringBuilder sb = new StringBuilder();
-		String sector;
-		String year;
+		String ticker;
 		for (Text key : map.keySet()) {
-			sector = key.toString().split("_")[0];
-			year = key.toString().split("_")[1];
-			sb.append(sector)
-			.append(",")
-			.append(year)
+			ticker = key.toString();
+			sb.append(ticker)
 			.append(": ")
-			.append(map.get(key));
+			.append(map.get(key))
+			.append("\n");
 		}
 		return new Text(sb.toString());
 	}
