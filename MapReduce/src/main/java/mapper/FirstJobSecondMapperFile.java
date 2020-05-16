@@ -33,7 +33,7 @@ public class FirstJobSecondMapperFile extends MapReduceBase implements Mapper<Lo
 		else {
 			List<String> list = new ArrayList<>();
 			int i = 0;
-			String finale =ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, ADJ_CLOSE_POSITION);
+			String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, ADJ_CLOSE_POSITION);
 			//	while (i < SingleNodeData.length) {
 			//			if (i != TICKER_POSITION && i != ADJ_CLOSE_POSITION) {
 			//			list.add(SingleNodeData[i]);
