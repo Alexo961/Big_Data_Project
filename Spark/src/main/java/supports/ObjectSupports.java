@@ -19,9 +19,9 @@ public class ObjectSupports {
 	private static final int STOCK_NUM_FIELDS = 8;
 	private static final int SECTOR_NUM_FILEDS = 5;
 	
-	public static ActionObject textToActionObject(String text) {
+	public static ActionObject stringToActionObject(String line) {
 		List<String> list;
-		list = textToList(text);
+		list = stringToList(line);
 		if (list.size() == STOCK_NUM_FIELDS) {
 			return listToStockObject(list);
 		}
@@ -140,7 +140,7 @@ public class ObjectSupports {
 		return finale;
 	}
 
-	public static List<String> textToList(String line){
+	public static List<String> stringToList(String line){
 		String[] array = line.split(",");
 		if(array.length > 0) {
 			return Arrays.asList(array);
