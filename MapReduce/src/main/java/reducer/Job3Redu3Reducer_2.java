@@ -1,6 +1,7 @@
 package reducer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,24 +23,32 @@ extends Reducer<Text, Text, Text, Text> {
 
 
 
-	Map<Double,List<String>> map = new HashMap<Double, List<String>>();
+	Map<Text,List<String>> map = new HashMap<Text, List<String>>();
+	Map<Double,List<String>> map2 = new HashMap<Double, List<String>>();
 	
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
-		int cont =0;
-		for (Text value : values) {
-			
-
-			cont  +=1;
-			if (cont == 3) {
-				List<String> s = map.get(key.toString().split("_")[1]);
-				s.add(key.toString().split("_")[0]);
-				map.put(new Double(key.toString().split("_")[1]),s);
-
-		}
 		
+		
+		List<String> s = new ArrayList<String>(); 
+		
+		int i = 0;
+		
+		for (Text value : values) {
+			    i ++;
 
+			
+			if(i == 3) {
+			    s = map.get(key.toString().split("_")[1]);
+			    if(s == null) s = new ArrayList<String>(); 
+				
+			    s.add(key.toString().split("_")[0]);
+				map.put(key,s);
+
+		
+		
+			}
 		}
 
 		
