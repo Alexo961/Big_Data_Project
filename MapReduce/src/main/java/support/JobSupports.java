@@ -219,7 +219,7 @@ public class JobSupports {
 
 		if (fl == null)
 			System.out.println("FL NULLO");
-		else if (fl[0] == null || fl[1] == null ) {
+		if (fl[0] == null || fl[1] == null ) {
 			System.out.println("UNO DEI DUE è NULLO");
 			if (fl[0] != null)
 				System.out.println(fl[0]);
