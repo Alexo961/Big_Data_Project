@@ -24,14 +24,15 @@ extends Reducer<Text, Text, Text, Text> {
 
 
 	Map<Text,List<String>> map = new HashMap<Text, List<String>>();
-	Map<Double,List<String>> map2 = new HashMap<Double, List<String>>();
-	
+	Map<String,List<String>> map2 = new HashMap<String, List<String>>();
+
+	List <String> s;
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
 		
 		
-		List<String> s = new ArrayList<String>(); 
+		 
 		
 		int i = 0;
 		
@@ -40,11 +41,11 @@ extends Reducer<Text, Text, Text, Text> {
 
 			
 			if(i == 3) {
-			    s = map.get(key.toString().split("_")[1]);
-			    if(s == null) s = new ArrayList<String>(); 
+			    s = map2.get((key.toString().split("_")[1]));
+			    if(s == null)  s = new ArrayList<String>(); 
 				
 			    s.add(key.toString().split("_")[0]);
-				map.put(key,s);
+				map2.put(key.toString().split("_")[1],s);
 
 		
 		
@@ -54,8 +55,8 @@ extends Reducer<Text, Text, Text, Text> {
 		
 
 
-
-		context.write(key, new Text(map.toString()));
+         
+		context.write(new Text(key.toString()), new Text(map2.toString()));
 
 	}
 
