@@ -105,5 +105,20 @@ public class StockObject implements ActionObject, Serializable{
 				+ low.hashCode() + high.hashCode()
 				+ volume.hashCode();
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof StockObject) {
+			StockObject that = (StockObject) o;
+			return (ticker.equals(that.getTicker())
+					&& open.equals(that.getOpen())
+					&& close.equals(that.getClose())
+					&& adj.equals(that.getAdj())
+					&& low.equals(that.getLow())
+					&& high.equals(that.getHigh())
+					&& volume.equals(that.getVolume()));
+		}
+		return false;
+	}
 
 }
