@@ -1,8 +1,9 @@
 package objects;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class StockObject implements ActionObject{
+public class StockObject implements ActionObject, Serializable{
 	
 	private static final int NUM_FIELDS = 8;
 
@@ -94,6 +95,15 @@ public class StockObject implements ActionObject{
 	
 	public int getNumFields() {
 		return NUM_FIELDS;
+	}
+	
+	@Override
+	public int hashCode() {
+		return ticker.hashCode() 
+				+ open.hashCode() + close.hashCode()
+				+ adj.hashCode()
+				+ low.hashCode() + high.hashCode()
+				+ volume.hashCode();
 	}
 
 }

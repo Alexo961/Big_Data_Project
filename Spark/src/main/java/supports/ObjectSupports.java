@@ -2,6 +2,7 @@ package supports;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ObjectSupports {
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 	private static final int STOCK_NUM_FIELDS = 8;
 	private static final int SECTOR_NUM_FILEDS = 5;
-	
+
 	public static ActionObject stringToActionObject(String line) {
 		List<String> list;
 		list = stringToList(line);
@@ -29,7 +30,7 @@ public class ObjectSupports {
 			return listToSectorObject(list);
 		return null;
 	}
-	
+
 	public static List<String> actionObjectToList(ActionObject ao){
 		try {
 			int num = ao.getNumFields();
@@ -127,26 +128,44 @@ public class ObjectSupports {
 			return new Text(line);
 		}
 	}
-	
+
 	public static String StringToText(String[] str, int lim1, int lim2) {
 		String finale = new String();
 		for(int i=0 ; i< str.length; i++) {
 			if(i!=lim1 && i!=lim2)
-		finale =	finale.concat(str[i]+",");
-			
+				finale =	finale.concat(str[i]+",");
+
 		}
 		finale = finale.substring(0, finale.length() - 1);
-		
+
 		return finale;
 	}
 
 	public static List<String> stringToList(String line){
+		List<String> list = new ArrayList<>();
 		String[] array = line.split(",");
+		StringBuilder sb = new StringBuilder();
+		boolean containsComma = false;
 		if(array.length > 0) {
-			return Arrays.asList(array);
+			for (String string : array) {
+				if (string.charAt(0) == '"') {
+					containsComma = true;
+					sb.append(string).append(",");
+					continue;
+				}
+				if (containsComma) {
+					sb.append(string).append(",");
+					if (string.charAt(string.length() - 1) == '"') {
+						containsComma = false;
+						list.add(sb.toString());
+					}
+					continue;
+				}
+				list.add(string);
+			}
+			return list;
 		}
-		else
-			return null;
+		return null;
 	}
 
 	public static SectorObject listToSectorObject(List<String> list) {
@@ -175,8 +194,8 @@ public class ObjectSupports {
 	}
 
 	public static Text actionObjectToText(ActionObject ao) {
-			List<String> list = actionObjectToList(ao);
-				return listToText(list);
+		List<String> list = actionObjectToList(ao);
+		return listToText(list);
 	}
-	
+
 }

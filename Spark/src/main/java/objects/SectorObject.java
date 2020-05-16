@@ -1,6 +1,8 @@
 package objects;
 
-public class SectorObject implements ActionObject{
+import java.io.Serializable;
+
+public class SectorObject implements ActionObject, Serializable{
 	
 	private static final int NUM_FIELDS = 5;
 	

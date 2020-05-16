@@ -9,6 +9,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 
 import functions.LineToStock;
 import objects.StockObject;
+import supports.DateSupports;
 import supports.ObjectSupports;
 
 public class FirstJob {
@@ -23,6 +24,13 @@ public class FirstJob {
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		
 		JavaRDD<String> data = sc.textFile(csvFile).cache();
-		JavaPairRDD<String, StockObject> dates = data.mapToPair(new LineToStock());
+		JavaPairRDD<String, StockObject> stocks = data.mapToPair(new LineToStock())
+				.filter(t -> t != null);
+		
+		JavaPairRDD<String, StockObject> firsts = stocks
+				.reduceByKey((a, b) -> DateSupports.first(a, b));
+		
+		JavaPairRDD<String, StockObject> lasts = stocks
+				.reduceByKey((a, b) -> DateSupports.last(a, b));
 	}
 }
