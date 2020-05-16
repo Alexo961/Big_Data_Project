@@ -38,14 +38,16 @@ extends Reducer<Text, Text, Text, Text> {
 		String  anno = key.toString().split("_")[1];
 
 		for (Text value : values) {
-			System.out.println(value.toString());
-			String[] split = value.toString().split("_");
+			
+			if (value.toString().split("_").length == 4) {
+		//	System.out.println(value.toString());
+			//String[] split = value.toString().split("_");
 			
 			firstLast = JobSupports.firstLast(firstLast, value.toString());
 
 
 			//map_quotation = JobSupports.media_per_ticker(new Double(split[5]), new Text(split [6]), map_quotation);
-
+			}
 		}
 
 		Double variation_quot = JobSupports.variationAnnualQuotation3(firstLast);
