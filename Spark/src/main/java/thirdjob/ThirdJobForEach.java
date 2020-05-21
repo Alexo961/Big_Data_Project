@@ -28,7 +28,7 @@ public class ThirdJobForEach implements VoidFunction<Tuple2<String, Iterable<Str
 			sb2.append(s).append(", ");
 			i++;
 		}
-		sb.delete(sb.length() - 2, sb.length() - 1);
+		sb2.delete(sb2.length() - 2, sb2.length() - 1);
 		sb2.append("}");
 
 		if(i > 1) {

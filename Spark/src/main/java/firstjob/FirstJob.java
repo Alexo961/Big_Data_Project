@@ -8,6 +8,7 @@ import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
+import comparators.Tuple2DouStrComparator;
 import functions.LineToStock;
 import objects.StockObject;
 import scala.Tuple2;
@@ -89,10 +90,18 @@ public class FirstJob {
 		
 		
 		
-		JavaPairRDD<String, String> result = variations
+		JavaPairRDD<Tuple2<Double, String>, String> result = variations
 				.join(result1)
-				.mapToPair(t -> new Tuple2<String, String>(t._1, t._2._1.toString().concat(",").concat(t._2._2)));
+				.mapToPair(t -> 
+					new Tuple2<Tuple2<Double, String>, String>(
+							new Tuple2<Double, String>(
+									t._2._1(),
+									t._1()),
+							t._2._1().toString().concat(",").concat(t._2._2())));
 	
-		result.foreach(t -> System.out.println(t._1 + "\t" + t._2));
+		
+		result
+		.sortByKey(new Tuple2DouStrComparator())
+		.foreach(t -> System.out.println(t._1._2() + "\t" + t._2));
 	}
 }

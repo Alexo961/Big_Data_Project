@@ -137,10 +137,11 @@ public class ThirdJob {
 		JavaPairRDD<String, Tuple2<Integer, Double>> finalByName = byYearVariation
 				.mapToPair(t -> t.swap());
 		
-		finalByName
+		/*finalByName
 		.sortByKey()
 		.foreach(t ->
 				System.out.println(t._1() + ": " + t._2._1().toString() + " " + t._2._2().toString()));
+		*/
 
 		//Map(Name, string:Year_Variation)
 		JavaPairRDD<String, String> yearVariationAsStrings = finalByName
@@ -161,10 +162,11 @@ public class ThirdJob {
 								GeneralSupports.iterableToList(t._2())))
 				.filter(t -> t._2.size() == 3);
 		
-		yearVariationsList
+		/*yearVariationsList
 		.sortByKey()
 		.foreach(t ->
 				System.out.println(t._1() + ": " + t._2().toString()));
+		*/
 		
 		//Map(Name, string:Year_Variation's)
 		JavaPairRDD<String, String> yearVariationAsBigString = yearVariationsList
@@ -173,9 +175,10 @@ public class ThirdJob {
 								t._1(),
 								ObjectSupports.listToString(t._2())));
 		
-		yearVariationAsBigString
+		/*yearVariationAsBigString
 		.sortByKey()
 		.foreach(t -> System.out.println(t._1() + ": " + t._2()));
+		*/
 		
 		//Map(string:Year_Variation's, list:Name)
 		JavaPairRDD<String, Iterable<String>> namesList = yearVariationAsBigString
