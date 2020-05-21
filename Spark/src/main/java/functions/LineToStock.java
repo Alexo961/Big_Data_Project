@@ -9,6 +9,7 @@ import supports.ObjectSupports;
 
 public class LineToStock implements PairFunction<String, String, StockObject>{
 
+	@Override
 	public Tuple2<String, StockObject> call(String t) throws Exception {
 		StockObject so = null;
 		ActionObject ao = ObjectSupports.stringToActionObject(t);

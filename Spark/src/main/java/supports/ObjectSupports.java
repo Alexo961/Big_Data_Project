@@ -112,11 +112,11 @@ public class ObjectSupports {
 		}
 	}
 
-	public static Text listToText(List<String> list) {
+	public static String listToString(List<String> list) {
 		Iterator<String> it = list.iterator();
 		StringBuilder sb = new StringBuilder("");
 		if (!it.hasNext()) {
-			return new Text("");
+			return "";
 		}
 		else {
 			while(it.hasNext()) {
@@ -125,7 +125,7 @@ public class ObjectSupports {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			String line = sb.toString();
-			return new Text(line);
+			return line;
 		}
 	}
 
@@ -154,12 +154,15 @@ public class ObjectSupports {
 					continue;
 				}
 				if (containsComma) {
-					sb.append(string).append(",");
-					if (string.charAt(string.length() - 1) == '"') {
-						containsComma = false;
-						list.add(sb.toString());
+					if (string.charAt(string.length() - 1) != '"') {
+						sb.append(string).append(",");
+						continue;
 					}
-					continue;
+					else {
+						containsComma = false;
+						sb.append(string);
+						string = sb.toString();
+					}
 				}
 				list.add(string);
 			}
@@ -193,9 +196,9 @@ public class ObjectSupports {
 		}
 	}
 
-	public static Text actionObjectToText(ActionObject ao) {
+	public static String actionObjectToString(ActionObject ao) {
 		List<String> list = actionObjectToList(ao);
-		return listToText(list);
+		return listToString(list);
 	}
 
 }
