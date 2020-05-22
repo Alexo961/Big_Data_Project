@@ -48,7 +48,7 @@ public class FirstJobSecondMapperFile extends MapReduceBase implements Mapper<Lo
 						//		}
 						//	}
 
-						output.collect(new TextPair(SingleNodeData[0], "1"), new Text(finale));
+						output.collect(new TextPair(SingleNodeData[0], "1"), value);
 					}
 				}
 			}

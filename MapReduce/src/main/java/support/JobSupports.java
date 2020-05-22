@@ -14,11 +14,12 @@ import org.apache.hadoop.io.Text;
 
 import com.google.common.collect.Lists;
 
+import objects.JoinObject;
 import objects.StockObject;
 import outputobjects.JobOneOutOne;
 
 public class JobSupports {
-	
+
 	private static final String DATE_PATTERN = "yyyy-MM-dd";
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
@@ -72,7 +73,7 @@ public class JobSupports {
 		double roundOff = (double) ((Math.round(result * 100)) / 100);
 		return roundOff;
 	}
-	
+
 	public static Text firstOutput(double variation, double minimum,
 			double maximum, double mediumVolume) {
 		List<String> list = new ArrayList<String>();
@@ -82,7 +83,7 @@ public class JobSupports {
 		list.add(3, Double.toString(mediumVolume));
 		return ObjectSupports.listToText(list);
 	}
-	
+
 	public static Text outOneToText(JobOneOutOne output) {
 		List<String> list = new ArrayList<>();
 		list.add(0, Double.toString(output.getVariation()));
@@ -91,8 +92,8 @@ public class JobSupports {
 		list.add(3, Double.toString(output.getMeanVolume()));
 		return ObjectSupports.listToText(list);
 	}
-	
-	
+
+
 	public static Map<Text, Double> sortByValues(Map<Text, Double> map) {
 		Map<Text, Double> appoggio1= new HashMap<Text, Double>();
 
@@ -133,7 +134,7 @@ public class JobSupports {
 		}
 
 		for (Double key : appoggio2.keySet()) {
-			
+
 			//System.out.println("APPOGGIO2");
 			//System.out.println(appoggio2.size());
 			appoggio1.put(appoggio2.get(key), key);
@@ -143,37 +144,37 @@ public class JobSupports {
 		return appoggio1;
 
 	}
-	
-	
-	
+
+
+
 	public  static Double medVolAnn (int k , Double sum) {
 		return sum/k;
-		
+
 	}
 	public  static Double medquotAnn (int k , Double sum) {
 		return sum/k;
-		
+
 	}
-	
-	
+
+
 	public static Map<Text,Double>  media_per_ticker(Double quotazione, Text ticker , Map<Text,Double> map) {
-		
+
 		if(!map.containsKey(ticker)) {
-			
+
 			map.put(ticker, quotazione);
-			
+
 		}else {
-			
+
 			Double value = map.get(ticker).doubleValue();
-		    map.put(ticker,(value + quotazione) )	;
-			
+			map.put(ticker,(value + quotazione) )	;
+
 		}
-		
-		
+
+
 		return map;
-		
+
 	}
-	
+
 	public static Text stampa_mappa(Map<Text,Double> map) {
 		StringBuilder sb = new StringBuilder();
 		String ticker;
@@ -186,7 +187,7 @@ public class JobSupports {
 		}
 		return new Text(sb.toString());
 	}
-	
+
 	public static String[] firstLast(String[] fl, String line) {
 		if (fl == null) {
 			fl = new String[2];
@@ -204,7 +205,7 @@ public class JobSupports {
 			fl[1] = line;
 		return fl;
 	}
-	
+
 	public static Double variationAnnualQuotation2(String[] fl) {
 		Double first = Double.parseDouble(fl[0].split("_")[5]);
 		Double last = Double.parseDouble(fl[1].split("_")[5]);
@@ -213,7 +214,7 @@ public class JobSupports {
 	}
 	public static Double variationAnnualQuotation3(String[] fl) {
 
-		
+
 		Double result;
 
 		/*
@@ -234,18 +235,59 @@ public class JobSupports {
 			System.out.println(fl[0]);
 			System.out.println(fl[1]);
 		}
-		*/
+		 */
 
 		if (fl!= null) {
 
-		Double first = Double.parseDouble(fl[0].split("_")[2]);
-		Double last = Double.parseDouble(fl[1].split("_")[2]);
-		 result = (double) (Math.round((((last - first)/first) *100)*100)/100);
+			Double first = Double.parseDouble(fl[0].split("_")[2]);
+			Double last = Double.parseDouble(fl[1].split("_")[2]);
+			result = (double) (Math.round((((last - first)/first) *100)*100)/100);
 		}else {
-			 result = 0.0;
+			result = 0.0;
 		}
 		return result;
 	}
-	
-	
+
+	public static JoinObject first(JoinObject oldj, JoinObject newj) {
+		if (oldj == null) {
+			return newj;
+		}
+		else {
+			if (oldj.getStock().getDate().compareTo(newj.getStock().getDate()) < 0)
+				return oldj;
+			else
+				return newj;
+		}
+	}
+
+	public static JoinObject last(JoinObject oldj, JoinObject newj) {
+		if (oldj == null) {
+			return newj;
+		}
+		else {
+			if (oldj.getStock().getDate().compareTo(newj.getStock().getDate()) > 0)
+				return oldj;
+			else
+				return newj;
+		}
+	}
+
+	public static double quotationCalc(JoinObject jo) {
+		double open = jo.getStock().getOpen();
+		double close = jo.getStock().getClose();
+		return close - open;
+	}
+
+	public static double variationCalc(JoinObject firstj, JoinObject lastj) {
+		if (firstj != null && lastj != null) {
+			double ft = firstj.getStock().getClose();
+			double lt = lastj.getStock().getClose();
+			double variation = Math.round((((lt - ft)/ft) * 100) * 10) / 10.0;
+			return variation;
+		}
+		else
+			return 0.0;
+	}
+
+
 }

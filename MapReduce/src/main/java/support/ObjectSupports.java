@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.hadoop.io.Text;
 
 import objects.ActionObject;
+import objects.JoinObject;
 import objects.SectorObject;
 import objects.StockObject;
 
@@ -19,6 +20,7 @@ public class ObjectSupports {
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 	private static final int STOCK_NUM_FIELDS = 8;
 	private static final int SECTOR_NUM_FILEDS = 5;
+	private static final int JOIN_NUM_FIELDS = 13;
 
 	public static StockObject listToStockObject(List<String> list) {
 		StockObject stock;
@@ -118,6 +120,23 @@ public class ObjectSupports {
 		}
 	}
 	
+	public static String listToString(List<String> list) {
+		Iterator<String> it = list.iterator();
+		StringBuilder sb = new StringBuilder("");
+		if (!it.hasNext()) {
+			return "";
+		}
+		else {
+			while(it.hasNext()) {
+				sb.append(it.next());
+				sb.append(",");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			String line = sb.toString();
+			return line;
+		}
+	}
+	
 	public static String StringToText(String[] str, int lim1, int lim2) {
 		String finale = new String();
 		for(int i=0 ; i< str.length; i++) {
@@ -166,8 +185,14 @@ public class ObjectSupports {
 		if (list.size() == STOCK_NUM_FIELDS) {
 			return listToStockObject(list);
 		}
-		if (list.size() == SECTOR_NUM_FILEDS)
+		if (list.size() == SECTOR_NUM_FILEDS) {
 			return listToSectorObject(list);
+		}
+		if (list.size() == JOIN_NUM_FIELDS) {
+			List<String> listSect = list.subList(0, SECTOR_NUM_FILEDS);
+			List<String> listStock = list.subList(SECTOR_NUM_FILEDS, list.size());
+			return new JoinObject(listToSectorObject(listSect), listToStockObject(listStock));
+		}
 		return null;
 	}
 

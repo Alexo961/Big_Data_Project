@@ -54,7 +54,7 @@ public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<Lon
 
 
 
-					output.collect(new TextPair(SingleNodeData[0], "0"),new Text(finale) );
+					output.collect(new TextPair(SingleNodeData[0], "0"),value );
 				}
 				else
 					System.out.println("SKIPPED BAD LINE");
