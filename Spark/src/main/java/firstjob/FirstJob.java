@@ -50,7 +50,7 @@ public class FirstJob {
 				.mapToPair(t -> 
 				new Tuple2<String, Double>(t._1, StockFunctions.totalVariation(t._2._1, t._2._2)))
 				.mapToPair(t -> t.swap())
-				.sortByKey()
+				.sortByKey()//scambio chiave valore per ordinare
 				.mapToPair(t -> t.swap());
 		
 		//Map(Ticker, Volume)
