@@ -10,7 +10,8 @@ import org.apache.hadoop.io.Text;
 //import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapred.*;
 
-
+import objects.ActionObject;
+import objects.StockObject;
 import support.ObjectSupports;
 import support.TextPair;
 
@@ -31,16 +32,26 @@ public class FirstJobSecondMapperFile extends MapReduceBase implements Mapper<Lo
 			System.out.println("SKIPPED HEADER");
 		}
 		else {
-			List<String> list = new ArrayList<>();
-			int i = 0;
-			String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, ADJ_CLOSE_POSITION);
-			//	while (i < SingleNodeData.length) {
-			//			if (i != TICKER_POSITION && i != ADJ_CLOSE_POSITION) {
-			//			list.add(SingleNodeData[i]);
-			//		}
-			//	}
+			ActionObject ao = ObjectSupports.textToActionObject(value);
+			if (ao != null) {
 
-			output.collect(new TextPair(SingleNodeData[0], "1"), new Text(finale));
+				if(ao instanceof StockObject && ao.hasAllFields()) {
+					StockObject so = (StockObject) ao;
+					if (so.getDate().getYear() >= 2008) {
+
+						List<String> list = new ArrayList<>();
+						int i = 0;
+						String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, ADJ_CLOSE_POSITION);
+						//	while (i < SingleNodeData.length) {
+						//			if (i != TICKER_POSITION && i != ADJ_CLOSE_POSITION) {
+						//			list.add(SingleNodeData[i]);
+						//		}
+						//	}
+
+						output.collect(new TextPair(SingleNodeData[0], "1"), new Text(finale));
+					}
+				}
+			}
 		}
 		// This output collector exposes the API for emitting tuples from an IRichBolt. This is the core API for emitting tuples. For a simpler API, and a more restricted form of stream processing, see IBasicBolt and BasicOutputCollector.
 	}

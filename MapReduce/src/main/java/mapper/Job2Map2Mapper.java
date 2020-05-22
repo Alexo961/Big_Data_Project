@@ -48,11 +48,12 @@ public class Job2Map2Mapper extends Mapper<LongWritable, Text, Text, Text> {
 			Text valore = new Text(str[7]+"_"+str[3]+"_"+str[4]+"_"+str[8]+"_" +nome +"_"+ quotazione+"_"+ticker);//volume_open_close_data_nomeazienda_quotazione
 			context.write(chiave, valore);
 		}
-
+		/*
 		else {
 
 			System.out.println("Riga spuria");
 		}
+		*/
 	}
 
 

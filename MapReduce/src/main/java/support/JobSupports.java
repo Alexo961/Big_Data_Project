@@ -42,18 +42,18 @@ public class JobSupports {
 			minMax = new double[2];
 			minMax[0]= newPrice;
 			minMax[1] = newPrice;
-			System.out.println("ERA NULLO, L'HO INIZIALIZZATO");
+			//System.out.println("ERA NULLO, L'HO INIZIALIZZATO");
 			System.out.println();
 			return minMax;
 		}
 		else {
-			System.out.println("AGGIORNO MINMAX");
+			//System.out.println("AGGIORNO MINMAX");
 			if (newPrice < minMax[0]) {
 				minMax[0] = newPrice;
-				System.out.println(minMax[0] + " " + minMax[1]);
+				//System.out.println(minMax[0] + " " + minMax[1]);
 			}
 			if (newPrice > minMax[1]) {
-				System.out.println(minMax[0] + " " + minMax[1]);
+				//System.out.println(minMax[0] + " " + minMax[1]);
 				minMax[1] = newPrice;
 			}
 			return minMax;
@@ -115,27 +115,27 @@ public class JobSupports {
 
 	public static Map<Text, Double> sorted_dasortare (Map<Text, JobOneOutOne> map) {
 		Map<Text, Double> appoggio1= new HashMap<Text, Double>();
-		System.out.println("MAPPA INPUT:");
+		//System.out.println("MAPPA INPUT:");
 		for (Text key : map.keySet()) {
-			System.out.println(key.toString());
-			System.out.println(outOneToText(map.get(key)).toString());
+			//System.out.println(key.toString());
+			//System.out.println(outOneToText(map.get(key)).toString());
 		}
 
 		Map<Double, Text> appoggio2 = new HashMap<Double, Text>();
 		for (Text key : map.keySet()) {
-			System.out.println("APPOGGIO1");
-			System.out.println(map.size());
-			System.out.println("DENTRO APPOGGIO 2 METTO:");
-			System.out.println(map.get(key).getVariation().toString());
-			System.out.println(key.toString());
+			//System.out.println("APPOGGIO1");
+			//System.out.println(map.size());
+			//System.out.println("DENTRO APPOGGIO 2 METTO:");
+			//System.out.println(map.get(key).getVariation().toString());
+			//System.out.println(key.toString());
 			appoggio2.put(map.get(key).getVariation(), key);
 
 		}
 
 		for (Double key : appoggio2.keySet()) {
 			
-			System.out.println("APPOGGIO2");
-			System.out.println(appoggio2.size());
+			//System.out.println("APPOGGIO2");
+			//System.out.println(appoggio2.size());
 			appoggio1.put(appoggio2.get(key), key);
 
 		}
@@ -216,6 +216,7 @@ public class JobSupports {
 		
 		Double result;
 
+		/*
 		if (fl == null)
 			System.out.println("FL NULLO");
 		if (fl[0] == null || fl[1] == null ) {
@@ -233,6 +234,7 @@ public class JobSupports {
 			System.out.println(fl[0]);
 			System.out.println(fl[1]);
 		}
+		*/
 
 		if (fl!= null) {
 

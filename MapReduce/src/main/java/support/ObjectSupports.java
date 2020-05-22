@@ -2,6 +2,7 @@ package support;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -129,14 +130,34 @@ public class ObjectSupports {
 		return finale;
 	}
 
-	public static List<String> textToList(Text text){
-		String line = text.toString();
-		String[] array = line.split(",");
+	public static List<String> textToList(Text line){
+		List<String> list = new ArrayList<>();
+		String[] array = line.toString().split(",");
+		StringBuilder sb = new StringBuilder();
+		boolean containsComma = false;
 		if(array.length > 0) {
-			return Arrays.asList(array);
+			for (String string : array) {
+				if (string.charAt(0) == '"') {
+					containsComma = true;
+					sb.append(string).append(",");
+					continue;
+				}
+				if (containsComma) {
+					if (string.charAt(string.length() - 1) != '"') {
+						sb.append(string).append(",");
+						continue;
+					}
+					else {
+						containsComma = false;
+						sb.append(string);
+						string = sb.toString();
+					}
+				}
+				list.add(string);
+			}
+			return list;
 		}
-		else
-			return null;
+		return null;
 	}
 
 	public static ActionObject textToActionObject(Text text) {

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class StockObject implements ActionObject{
 	
 	private static final int NUM_FIELDS = 8;
+	private static final String NULL_FIELD = "N/A";
 
 	private String ticker;
 	private Double open;
@@ -94,6 +95,21 @@ public class StockObject implements ActionObject{
 	
 	public int getNumFields() {
 		return NUM_FIELDS;
+	}
+	
+	@Override
+	public boolean hasNullFields() {
+		return (ticker == null || ticker.equals(NULL_FIELD))
+				|| (open == null) || (close == null)
+				|| (adj == null)
+				|| (low == null) || (high == null)
+				|| (volume == null)
+				|| (date == null);
+	}
+	
+	@Override
+	public boolean hasAllFields() {
+		return !hasNullFields();
 	}
 
 }
