@@ -41,8 +41,13 @@ extends Reducer<Text, Text, Text, Text> {
 			
 			if (value.toString().split("_").length == 4) {
 		//	System.out.println(value.toString());
-			//String[] split = value.toString().split("_");
+			String[] split = value.toString().split("_");
 			
+			for (String piece : split) {
+				System.out.println(piece);
+				if (piece == null)
+					System.out.println("PIECE NULLO");
+			}
 			firstLast = JobSupports.firstLast(firstLast, value.toString());
 
 

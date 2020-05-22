@@ -18,6 +18,8 @@ public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<Lon
 
 	private static final int TICKER_POSITION = 0;
 	private static final int EXCHANGE_POSITION = 1;
+	
+	private static int count = 0;
 
 
 	@Override
@@ -27,12 +29,17 @@ public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<Lon
 
 		String valueString = value.toString();
 		String[] SingleNodeData = valueString.split(",");
+		System.out.println("SPLIT SECTOR");
+		if (count < 100) {
+			for (int j = 0; j < SingleNodeData.length; j++) {
+				System.out.println(j + ": " + SingleNodeData[j]);
+			}
+			count++;
+		}
 		if (SingleNodeData[0].equals("ticker")) {
 			System.out.println("SKIPPED HEADER");
 		}
 		else {
-
-
 		String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, EXCHANGE_POSITION);
 
 

@@ -176,16 +176,13 @@ public class JobSupports {
 	
 	public static Text stampa_mappa(Map<Text,Double> map) {
 		StringBuilder sb = new StringBuilder();
-		String sector;
-		String year;
+		String ticker;
 		for (Text key : map.keySet()) {
-			sector = key.toString().split("_")[0];
-			year = key.toString().split("_")[1];
-			sb.append(sector)
-			.append(",")
-			.append(year)
+			ticker = key.toString();
+			sb.append(ticker)
 			.append(": ")
-			.append(map.get(key));
+			.append(map.get(key))
+			.append("\n");
 		}
 		return new Text(sb.toString());
 	}
@@ -218,6 +215,24 @@ public class JobSupports {
 
 		
 		Double result;
+
+		if (fl == null)
+			System.out.println("FL NULLO");
+		if (fl[0] == null || fl[1] == null ) {
+			System.out.println("UNO DEI DUE è NULLO");
+			if (fl[0] != null)
+				System.out.println(fl[0]);
+			else 
+				System.out.println("FL0 NULLO");
+			if (fl[1] != null)
+				System.out.println(fl[1]);
+			else
+				System.out.println("FL1 NULLO");
+		}
+		else {
+			System.out.println(fl[0]);
+			System.out.println(fl[1]);
+		}
 
 		if (fl!= null) {
 
