@@ -21,15 +21,15 @@ public class ThirdJobFirstReducer extends Reducer<Text, Text, Text, Text>{
 		String year = byYearNameTicker.split("_")[0];
 		String name = byYearNameTicker.split("_")[1];
 		
-		System.out.println("FirstReducer");
-		System.out.println(key.toString());
+		//System.out.println("FirstReducer");
+		//System.out.println(key.toString());
 
 		JoinObject first = null;
 		JoinObject last = null;
 		double variation = 0;
 
 		for (Text value : values) {
-			System.out.println(value.toString());
+			//System.out.println(value.toString());
 			ActionObject ao = ObjectSupports.textToActionObject(value);
 			if (ao != null && ao instanceof JoinObject) {
 				JoinObject jo = (JoinObject) ObjectSupports.textToActionObject(value);

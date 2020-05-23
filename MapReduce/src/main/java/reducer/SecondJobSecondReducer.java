@@ -11,8 +11,8 @@ public class SecondJobSecondReducer extends Reducer<Text, Text, Text, Text>{
 	public void reduce(Text key, Iterable<Text> values, Context context) 
 			throws IOException, InterruptedException {
 		
-		System.out.println("SecondReducer");
-		System.out.println(key);
+		//System.out.println("SecondReducer");
+		//System.out.println(key);
 		
 		double variationsAvg = 0;
 		double quotationsAvg = 0;
@@ -24,7 +24,7 @@ public class SecondJobSecondReducer extends Reducer<Text, Text, Text, Text>{
 		
 		for(Text value : values) {
 			
-			System.out.println(value);
+			//System.out.println(value);
 			if (value != null) {
 				String line = value.toString();
 				double volume = Double.parseDouble(line.split("_")[0]);

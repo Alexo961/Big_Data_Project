@@ -1,5 +1,6 @@
 package reducer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,7 +41,8 @@ public class ThirdJobThirdReducer extends Reducer<Text, Text, Text, Text>{
 	}
 	
 	@Override
-	public void cleanup(Context context) {
+	public void cleanup(Context context) 
+			throws IOException, InterruptedException {
 		
 		for(String year_vars : namesByYearVar.keySet()) {
 			List<String> namesList = namesByYearVar.get(year_vars);
@@ -48,7 +50,8 @@ public class ThirdJobThirdReducer extends Reducer<Text, Text, Text, Text>{
 					&& (namesList.size() > 1)) {
 				
 				String names = ObjectSupports.listToString(namesList);
-				System.out.println(names + ": " + year_vars);
+				//System.out.println(names + ": " + year_vars);
+				context.write(new Text(names), new Text(year_vars));
 			}
 		}
 	}

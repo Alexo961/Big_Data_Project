@@ -20,8 +20,8 @@ public class SecondJobFirstReducer extends Reducer<Text, Text, Text, Text>{
 		String year = byYearSectorTicker.split("_")[0];
 		String sector = byYearSectorTicker.split("_")[1];
 		
-		System.out.println("FirstReducer");
-		System.out.println(key.toString());
+		//System.out.println("FirstReducer");
+		//System.out.println(key.toString());
 
 		JoinObject first = null;
 		JoinObject last = null;
@@ -33,7 +33,7 @@ public class SecondJobFirstReducer extends Reducer<Text, Text, Text, Text>{
 		double quotationAvg = 0;
 
 		for (Text value : values) {
-			System.out.println(value.toString());
+			//System.out.println(value.toString());
 			ActionObject ao = ObjectSupports.textToActionObject(value);
 			if (ao != null && ao instanceof JoinObject) {
 				JoinObject jo = (JoinObject) ObjectSupports.textToActionObject(value);
