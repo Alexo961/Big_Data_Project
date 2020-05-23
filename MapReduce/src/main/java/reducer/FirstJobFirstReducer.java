@@ -1,8 +1,11 @@
 package reducer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -21,7 +24,7 @@ extends Reducer<Text, Text, Text, Text> {
 
 	private Map<String, JobOneOutOne> reduceMap = new HashMap<String, JobOneOutOne>();
 	//private Map<Text, Double> daSortareMap = new HashMap<Text, Double>();
-	private SortedSet<JobOneOutOne> variationSet = new TreeSet<>(new JobOneVariationComp());
+	private List<JobOneOutOne> variationSet = new ArrayList<>();
 
 	StockObject stock;
 	double variation;
@@ -105,6 +108,9 @@ extends Reducer<Text, Text, Text, Text> {
 	@Override
 	public void cleanup(Context context)
 			throws IOException, InterruptedException{
+		
+		variationSet.sort(new JobOneVariationComp());
+		Collections.reverse(variationSet);
 
 		Iterator<JobOneOutOne> itr = variationSet.iterator();
 		while (itr.hasNext()){
