@@ -8,7 +8,9 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
+import objects.ActionObject;
 import objects.StockObject;
+import support.ObjectSupports;
 
 public class ActionMapper extends Mapper<LongWritable, Text, Text, Text> {
 
@@ -26,8 +28,24 @@ public class ActionMapper extends Mapper<LongWritable, Text, Text, Text> {
 				System.out.println("SKIPPED FIRST LINE");
 			}
 			else {
-				ticker = new Text(tickerString);
-				context.write(ticker, value);
+				ActionObject ao = ObjectSupports.textToActionObject(value);
+				if (ao != null && ao.hasAllFields()) {
+					if (ao instanceof StockObject) {
+						StockObject so = (StockObject) ao;
+						if(so.getDate().getYear() >= 2008) {
+							ticker = new Text(tickerString);
+							context.write(ticker, value);
+						}
+						/*
+						else
+							System.out.println("Stock older than 2008");
+							*/
+					}
+					else {
+						ticker = new Text(tickerString);
+						context.write(ticker, value);
+					}
+				}
 			}
 		}
 

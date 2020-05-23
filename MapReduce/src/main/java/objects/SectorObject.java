@@ -3,6 +3,7 @@ package objects;
 public class SectorObject implements ActionObject{
 	
 	private static final int NUM_FIELDS = 5;
+	private static final String NULL_FIELD = "N/A";
 	
 	private String ticker;
 	private String exchange;
@@ -61,6 +62,20 @@ public class SectorObject implements ActionObject{
 	
 	public int getNumFields() {
 		return NUM_FIELDS;
+	}
+	
+	@Override
+	public boolean hasNullFields() {
+		return (ticker == null || ticker.equals(NULL_FIELD))
+				|| (exchange == null || exchange.equals(NULL_FIELD))
+				|| (name == null || name.equals(NULL_FIELD))
+				|| (sector == null || name.equals(NULL_FIELD))
+				|| (industry == null || industry.equals(NULL_FIELD));
+	}
+	
+	@Override
+	public boolean hasAllFields() {
+		return !hasNullFields();
 	}
 
 }

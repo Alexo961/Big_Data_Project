@@ -32,8 +32,11 @@ public class Job3Map3Mapper_2 extends Mapper<LongWritable, Text, Text, Text> {
 			String nome_azienda =  valore.split("_")[2];
 			String ticker = chiave.split("_")[0];
 		
-			String keyless = nome_azienda+"_"+ variaz_quot+"_"+ticker;
-			context.write(new Text(keyless),new Text( yearString));
+
+			String keyless = nome_azienda;
+			String anno_var = yearString + ": " + variaz_quot;
+			context.write(new Text(keyless),new Text( anno_var));
+
 		    
 
 		}else {

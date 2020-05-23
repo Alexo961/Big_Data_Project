@@ -10,6 +10,8 @@ import org.apache.hadoop.io.Text;
 //import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapred.*;
 
+import objects.ActionObject;
+import objects.SectorObject;
 import support.ObjectSupports;
 import support.TextPair;
 
@@ -18,8 +20,8 @@ public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<Lon
 
 	private static final int TICKER_POSITION = 0;
 	private static final int EXCHANGE_POSITION = 1;
-	
-	private static int count = 0;
+
+	//private static int count = 0;
 
 
 	@Override
@@ -29,22 +31,34 @@ public class FirstJobFirstMapperFile extends MapReduceBase implements Mapper<Lon
 
 		String valueString = value.toString();
 		String[] SingleNodeData = valueString.split(",");
-		System.out.println("SPLIT SECTOR");
+		//System.out.println("SPLIT SECTOR");
+		/*
 		if (count < 100) {
 			for (int j = 0; j < SingleNodeData.length; j++) {
 				System.out.println(j + ": " + SingleNodeData[j]);
 			}
 			count++;
 		}
+		 */
 		if (SingleNodeData[0].equals("ticker")) {
 			System.out.println("SKIPPED HEADER");
 		}
 		else {
-		String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, EXCHANGE_POSITION);
+			ActionObject ao = ObjectSupports.textToActionObject(value);
+			if (ao == null)
+				System.out.println("SKIPPED BAD LINE");
+			else {
+				if(ao.hasAllFields()) {
+
+					String finale = ObjectSupports.StringToText(SingleNodeData, TICKER_POSITION, EXCHANGE_POSITION);
 
 
 
-			output.collect(new TextPair(SingleNodeData[0], "0"),new Text(finale) );
+					output.collect(new TextPair(SingleNodeData[0], "0"),value );
+				}
+				else
+					System.out.println("SKIPPED BAD LINE");
+			}
 		}
 		//  This output collector exposes the API for emitting tuples from an IRichBolt. This is the core API for emitting tuples. For a simpler API, and a more restricted form of stream processing, see IBasicBolt and BasicOutputCollector.
 	}
